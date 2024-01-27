@@ -1,6 +1,7 @@
-import React, {  useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserValueTypes } from "../../types/types";
+import ShowPassowrd from "../../components/ShowPassword";
 
 const Signup = () => {
 
@@ -22,6 +23,9 @@ const Signup = () => {
         setValues( ( p ) => ( { ...p, [ name ]: value } ) )
 
     }
+
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
     return (
         <div className="wrapper signup">
@@ -53,15 +57,15 @@ const Signup = () => {
                         <label htmlFor="Password">
                             <p> Password </p>
                             <div className="password-wrapper">
-                                <input id="Password" type="text" name="password" onChange={ controlledInputs } placeholder="Password ..." value={ values?.password} />
-                                <button type="button"> show </button>
+                                <input id="Password" type="password" name="password" onChange={ controlledInputs } placeholder="Password ..." value={ values?.password} ref={ passwordRef } />
+                                <ShowPassowrd password={ passwordRef } confirm_password={ confirmPasswordRef } />
                             </div>
                         </label>
                     </div>
                     <div className="label-wrapper">
                         <label htmlFor="ConfirmPassword">
                             <p> Confirm Password </p>
-                            <input id="ConfirmPassword" type="text" name="confirm_password" onChange={ controlledInputs } placeholder="Confirm Password ..." value={ values?.confirm_password} />
+                            <input id="ConfirmPassword" type="password" name="confirm_password" onChange={ controlledInputs } placeholder="Confirm Password ..." value={ values?.confirm_password} ref={ confirmPasswordRef } />
                         </label>
                     </div>
                     <div className="buttons-wrapper">

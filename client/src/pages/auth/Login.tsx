@@ -1,6 +1,7 @@
-import React, {  useState } from "react";
+import React, {  useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserValueTypes } from "../../types/types";
+import ShowPassowrd from "../../components/ShowPassword";
 
 const Login = () => {
 
@@ -19,6 +20,8 @@ const Login = () => {
         setValues( ( p ) => ( { ...p, [ name ]: value } ) )
 
     }
+
+    const passwordRef = useRef<HTMLInputElement>(null)
 
     return (
         <div className="wrapper login">
@@ -45,8 +48,8 @@ const Login = () => {
                         <label htmlFor="Password">
                             <p> Password </p>
                             <div className="password-wrapper">
-                                <input id="Password" type="text" name="password" onChange={ controlledInputs } placeholder="Password ..." value={ values?.password} />
-                                <button type="button"> show </button>
+                                <input id="Password" type="password" name="password" onChange={ controlledInputs } placeholder="Password ..." value={ values?.password} ref={ passwordRef } />
+                                <ShowPassowrd password={ passwordRef } />
                             </div>
                         </label>
                     </div>
