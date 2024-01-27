@@ -119,7 +119,7 @@ button {
   transform: scale(.95);
 }
 
-.wrapper .form-wrapper form .label-wrapper label .password-wrapper button {
+.wrapper .form-wrapper form .label-wrapper label .password-wrapper .show-password {
   position: absolute;
   right: 10px;
   padding: .5em;
@@ -129,6 +129,12 @@ button {
   text-transform: uppercase;
   font-weight: 600;
   transition: .1s ease-in-out;
+}
+
+.wrapper .form-wrapper form .label-wrapper label .password-wrapper .show-password button {
+  padding: 0;
+  margin: 0;
+  border: none;
 }
 
 .wrapper .form-wrapper form .buttons-wrapper button {
