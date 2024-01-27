@@ -1,68 +1,167 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: black;
+  width: 100%;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+input {
+  width: 100%;
+  padding: 1em;
+  font-size: inherit;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  display: block;
+  color: inherit;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  font-size: 14px;
+  padding: 1em 2em;
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* default display flex */
+.wrapper,
+.wrapper .form-wrapper form .label-wrapper label .password-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/* default max width */
+.wrapper {
+  max-width: 1300px;
+}
+
+/* default 100% width */
+.wrapper .form-wrapper form .title-wrapper,
+.wrapper .form-wrapper form .label-wrapper,
+.wrapper .form-wrapper form .label-wrapper label,
+.wrapper .form-wrapper form .buttons-wrapper,
+.wrapper .form-wrapper form .extra-wrapper,
+.wrapper .about-wrapper .title-wrapper,
+.wrapper .about-wrapper .content-wrapper {
+  width: 100%;
+}
+
+
+/* wrappers */
+.wrapper {
+  width: 1300px;
+  position: fixed;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+}
+
+/* signup */
+.wrapper .form-wrapper {
+  width: 400px;
+  padding: 1em;
+}
+
+.wrapper .form-wrapper form .title-wrapper {
+  margin: 2em 0;
+}
+.wrapper .form-wrapper form .title-wrapper p {
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+}
+
+.wrapper .form-wrapper form .label-wrapper {
+  position: relative;
+  margin: 1.5em 0;
+}
+
+.wrapper .form-wrapper form .label-wrapper label p {
+  position: absolute;
+  top: -16px;
+  left: 5px;
+  background: white;
+  border: 1px solid black;
+  padding: .3em .5em;
+  border-radius: 4px;
+  font-size: 13px;
+  z-index: 1;
+}
+
+.wrapper .form-wrapper form .label-wrapper label input:focus {
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+.wrapper .form-wrapper form .label-wrapper label input {
+  border: 1px solid black;
+  transition: .1s ease-in-out;
+}
+
+.wrapper .form-wrapper form .label-wrapper label .password-wrapper {
+  position: relative;
+}
+
+.wrapper .form-wrapper form .label-wrapper label .password-wrapper button:active {
+  transform: scale(.95);
+}
+
+.wrapper .form-wrapper form .label-wrapper label .password-wrapper button {
+  position: absolute;
+  right: 10px;
+  padding: .5em;
+  margin: 0;
+  font-size: 11px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: .1s ease-in-out;
+}
+
+.wrapper .form-wrapper form .buttons-wrapper button {
+  margin: 1em auto;
+}
+
+.wrapper .form-wrapper form .extra-wrapper {
+  margin: 1.5em 0 1em;
+}
+
+.wrapper .form-wrapper form .extra-wrapper p {
+  font-size: 14px;
+  text-align: center;
+}
+
+.wrapper .form-wrapper form .extra-wrapper a {
+  text-transform: capitalize;
+  text-decoration: underline;
+  color: blue;
+}
+
+/* Login */
+.wrapper .about-wrapper {
+  width: 400px;
+  margin-right: 1em;
+  height: 200px;
+}
+
+.wrapper .about-wrapper .title-wrapper {
+  margin-bottom: 1em; 
+}
+
+.wrapper .about-wrapper .title-wrapper p {
+  font-size: x-large;
+  font-weight: 600;
 }
