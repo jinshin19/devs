@@ -15,6 +15,7 @@ body {
   width: 100%;
 }
 
+textarea,
 input {
   width: 100%;
   padding: 1em;
@@ -30,6 +31,8 @@ button {
   background: transparent;
   border: 1px solid black;
   border-radius: 5px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 /* default display flex */
@@ -37,7 +40,10 @@ button {
 .wrapper .form-wrapper form .label-wrapper label .password-wrapper,
 .wrapper nav,
 .wrapper .search-wrapper,
-.devs-container {
+.devs-container,
+.wrapper .update-container .form-wrapper form .image-wrapper,
+.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper,
+.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -60,7 +66,11 @@ button {
 .wrapper .about-wrapper .title-wrapper,
 .wrapper .about-wrapper .content-wrapper,
 .wrapper nav,
-.devs-container,
+.wrapper .devs-container,
+.wrapper .update-container,
+.wrapper .update-container .form-wrapper form .image-wrapper,
+.wrapper .update-container .form-wrapper form .image-wrapper label,
+.wrapper .update-container .form-wrapper form .label-wrapper .add-wrapper,
 .wrapper footer {
   width: 100%;
 }
@@ -180,7 +190,8 @@ button {
 }
 
 /* Nav */
-.index-wrapper {
+.index-wrapper,
+.update-wrapper {
   display: block;
   padding: 2em 0;
 }
@@ -257,4 +268,106 @@ button {
 .wrapper footer {
   text-align: center;
   margin-top: 5em;
+}
+
+/* Update */
+.update-wrapper::-webkit-scrollbar {
+  width: 0px;
+}
+.update-wrapper {
+  max-height: 600;
+  overflow-y: auto;
+}
+
+.wrapper .update-container {
+  margin-top: -2em;
+}
+
+.wrapper .update-container .form-wrapper {
+  margin: auto;
+}
+
+.wrapper .update-container .form-wrapper form .image-wrapper {
+  padding: 2em;
+  margin-bottom: 2em;
+  border-bottom: 1px solid;
+  flex-direction: column;
+}
+
+.wrapper .update-container .form-wrapper form .image-wrapper .image-container {
+  margin-right: 1em;
+}
+
+.wrapper .update-container .form-wrapper form .image-wrapper .image-container,
+.wrapper .update-container .form-wrapper form .image-wrapper .image-container img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50em;
+}
+
+.wrapper .update-container .form-wrapper form .image-wrapper label {
+  display: block;
+}
+
+.wrapper .update-container .form-wrapper form .image-wrapper label p:nth-child(1) {
+  margin: 1em 0;
+}
+
+.wrapper .update-container .form-wrapper form .image-wrapper label p:nth-child(2) {
+  display: block;
+  width: 100%;
+  border: 1px solid;
+  padding: .5em;
+  border-radius: 5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  /* margin-top: 1em; */
+  text-align: center;
+}
+
+.wrapper .update-container .form-wrapper form .label-wrapper label textarea::-webkit-scrollbar {
+  width: 0;
+}
+
+.wrapper .update-container .form-wrapper form .label-wrapper label textarea {
+  max-height: 100px;
+  height: 100px;
+  border: 1px solid;
+  resize: none;
+  overflow-y: auto;
+}
+
+.update-wrapper footer {
+  margin-top: 1em;
+}
+
+/* Social Links */
+.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper {
+  border-radius: 5px;
+}
+
+
+.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs {
+  /* background: red; */
+  margin: .5em 0;
+}
+
+.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs input {
+  flex: 1;
+  border: 1px solid black;
+  margin: 0 .5em;
+  border-radius: 5px;
+}
+
+.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs button {
+  padding: 1em;
+  margin: 0;
+}
+
+.wrapper .update-container .form-wrapper form .label-wrapper .add-wrapper {
+  padding: 1em 0;
+}
+
+.wrapper .update-container .form-wrapper form .label-wrapper .add-wrapper button {
+  width: 100%;
 }
