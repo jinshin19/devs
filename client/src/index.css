@@ -34,7 +34,10 @@ button {
 
 /* default display flex */
 .wrapper,
-.wrapper .form-wrapper form .label-wrapper label .password-wrapper {
+.wrapper .form-wrapper form .label-wrapper label .password-wrapper,
+.wrapper nav,
+.wrapper .search-wrapper,
+.devs-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -45,6 +48,7 @@ button {
 /* default max width */
 .wrapper {
   max-width: 1300px;
+  width: 100%;
 }
 
 /* default 100% width */
@@ -54,7 +58,10 @@ button {
 .wrapper .form-wrapper form .buttons-wrapper,
 .wrapper .form-wrapper form .extra-wrapper,
 .wrapper .about-wrapper .title-wrapper,
-.wrapper .about-wrapper .content-wrapper {
+.wrapper .about-wrapper .content-wrapper,
+.wrapper nav,
+.devs-container,
+.wrapper footer {
   width: 100%;
 }
 
@@ -170,4 +177,84 @@ button {
 .wrapper .about-wrapper .title-wrapper p {
   font-size: x-large;
   font-weight: 600;
+}
+
+/* Nav */
+.index-wrapper {
+  display: block;
+  padding: 2em 0;
+}
+
+.wrapper nav {
+  justify-content: space-between;
+  padding: 0 1em;
+  margin-bottom: 3em;
+}
+
+.wrapper nav .logo {
+  font-size: large;
+  font-weight: 600;
+  color: inherit;
+}
+
+.wrapper nav ul li {
+  font-size: 16px;
+}
+
+.wrapper nav ul li button {
+  padding: 1em;
+  margin: 0;
+  border: none;
+  font-size: inherit;
+}
+
+.wrapper .search-wrapper {
+  width: 500px;
+  position: relative;
+}
+
+.wrapper .search-wrapper input {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.wrapper .search-wrapper button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  position: absolute;
+  right: 0;
+  padding: 1em;
+}
+
+/* Devs Container */
+.wrapper .devs-container .devs {
+  max-width: 210px;
+  width: 210px;
+  height: 156px;
+  border: 1px solid;
+  padding: 1em;
+  border-radius: 5px;
+  margin: 1em;
+}
+
+.wrapper .devs-container .devs .image-wrapper,
+.wrapper .devs-container .devs .image-wrapper img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50em;
+  margin: auto;
+  object-fit: contain;
+}
+
+.wrapper .devs-container .devs .content-wrapper {
+  margin: 1em 0;
+  text-align: center;
+  word-wrap: break-word;
+  color: black;
+}
+
+.wrapper footer {
+  text-align: center;
+  margin-top: 5em;
 }
