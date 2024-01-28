@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserValueTypes } from "../../types/types";
-import ShowPassowrd from "../../components/ShowPassword";
+import ShowPassword from "../../components/ShowPassword";
 
 const Signup = () => {
 
@@ -58,7 +58,7 @@ const Signup = () => {
                             <p> Password </p>
                             <div className="password-wrapper">
                                 <input id="Password" type="password" name="password" onChange={ controlledInputs } placeholder="Password ..." value={ values?.password} ref={ passwordRef } />
-                                <ShowPassowrd password={ passwordRef } confirm_password={ confirmPasswordRef } />
+                                <ShowPassword password={ passwordRef } confirm_password={ confirmPasswordRef } />
                             </div>
                         </label>
                     </div>
