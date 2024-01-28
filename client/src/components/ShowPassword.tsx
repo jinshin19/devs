@@ -7,7 +7,7 @@ interface PropType {
     confirm_password?: any;
 }
 
-const ShowPassowrd = ( { password, confirm_password }: PropType) => {
+const ShowPassword = ( { password, confirm_password }: PropType) => {
 
     const [ show, setShow ] = useState(false)
 
@@ -51,4 +51,4 @@ const ShowPassowrd = ( { password, confirm_password }: PropType) => {
 
 }
 
-export default ShowPassowrd;
+export default ShowPassword;
