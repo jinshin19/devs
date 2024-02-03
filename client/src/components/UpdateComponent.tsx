@@ -48,15 +48,13 @@ const UpdateComponent = () => {
         
         setLinks( (p) => {
 
-            const updatedLinks = [ ...p ];
-
-            updatedLinks[index] = {
-                ...updatedLinks[index],
+            const updateLinks = [...p];
+            updateLinks[index] = {
+                ...updateLinks[index],
                 [name]: value
-            }
-
-            return updatedLinks
-
+            };
+            return updateLinks;
+            
         })
     }
 
