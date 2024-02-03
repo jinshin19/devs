@@ -67,6 +67,14 @@ button {
 .wrapper .about-wrapper .content-wrapper,
 .wrapper nav,
 .wrapper .devs-container,
+.wrapper .read-container,
+.wrapper .read-content-wrapper .image-wrapper,
+.wrapper .read-content-wrapper .name-wrapper,
+.wrapper .read-content-wrapper .bio-wrapper,
+.wrapper .read-content-wrapper .stacks-wrapper,
+.wrapper .read-content-wrapper .links-wrapper,
+.wrapper .read-content-wrapper .stacks-wrapper .title-wrapper,
+.wrapper .read-content-wrapper .links-wrapper .title-wrapper,
 .wrapper .update-container,
 .wrapper .update-container .form-wrapper form .image-wrapper,
 .wrapper .update-container .form-wrapper form .image-wrapper label,
@@ -191,7 +199,8 @@ button {
 
 /* Nav */
 .index-wrapper,
-.update-wrapper {
+.update-wrapper,
+.read-wrapper {
   display: block;
   padding: 2em 0;
 }
@@ -270,10 +279,74 @@ button {
   margin-top: 5em;
 }
 
+/* Read */
+.read-wrapper::-webkit-scrollbar {
+  width: 0px;
+}
+
+.read-wrapper {
+  max-height: 600;
+  overflow-y: auto;
+}
+
+.wrapper .read-container .read-content-wrapper {
+  width: 460px;
+  margin: auto;
+}
+
+.wrapper .read-container .read-content-wrapper .image-wrapper img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50em;
+  margin: auto;
+  display: block;
+}
+
+.wrapper .read-container .read-content-wrapper .name-wrapper p {
+  display: block;
+  text-align: center;
+  padding: 1em 0;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.wrapper .read-container .read-content-wrapper .bio-wrapper p {
+  padding: 1em;
+  word-wrap: break-word;
+}
+
+.wrapper .read-container .read-content-wrapper .stacks-wrapper .title-wrapper p,
+.wrapper .read-container .read-content-wrapper .links-wrapper .title-wrapper p {
+  display: block;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.wrapper .read-container .read-content-wrapper .stacks-wrapper ul,
+.wrapper .read-container .read-content-wrapper .links-wrapper ul {
+  padding: 0 1em;
+  margin-top: .3em;
+  margin-left: 1em;
+  width: 100%;
+}
+
+.wrapper .read-container .read-content-wrapper .stacks-wrapper ul li,
+.wrapper .read-container .read-content-wrapper .links-wrapper ul li {
+  list-style: disc;
+  padding: .3em 0;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.wrapper .read-container .read-content-wrapper .stacks-wrapper {
+  margin: 1em 0 1.5em;
+}
+
 /* Update */
 .update-wrapper::-webkit-scrollbar {
   width: 0px;
 }
+
 .update-wrapper {
   max-height: 600;
   overflow-y: auto;
