@@ -69,7 +69,6 @@ const UpdateComponent = () => {
         setLinks( (p) => [ ...p, { title: '', link: '' } ] )
     }
 
-
     return (
         <div className="update-container">
             <div className="form-wrapper">
