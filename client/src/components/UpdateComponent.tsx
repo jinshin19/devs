@@ -32,8 +32,6 @@ const UpdateComponent = () => {
         ]
     );
 
-    // console.log(links)
-
     const controlledInputs = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
 
         const name: string = e.target.name;
@@ -44,7 +42,6 @@ const UpdateComponent = () => {
     }
 
     const controlledLinkInputs = ( e: React.ChangeEvent<HTMLInputElement>, index: number ) => {
-        console.log(index)
 
         const name: string = e.target.name;
         const value: string  = e.target.value;
@@ -66,11 +63,7 @@ const UpdateComponent = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
-    const deleteLinkHandler = ( index: number ) => {
-        links?.length > 1 ? 
-        setLinks( ( p ) => p.filter( (_, i) => i !== index) ) :
-        null
-    }
+    const deleteLinkHandler = ( index: number ) => ( links?.length > 1 ) && setLinks( ( p ) => p.filter( (_, i) => i !== index) )
 
     const addLinkHandler = () => {
         setLinks( (p) => [ ...p, { title: '', link: '' } ] )
