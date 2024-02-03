@@ -66,6 +66,7 @@ button {
 .wrapper .about-wrapper .title-wrapper,
 .wrapper .about-wrapper .content-wrapper,
 .wrapper nav,
+.wrapper nav ul li .sub-setting-wrapper .actions-wrapper,
 .wrapper .devs-container,
 .wrapper .read-container,
 .wrapper .read-content-wrapper .image-wrapper,
@@ -245,6 +246,49 @@ button {
   position: absolute;
   right: 0;
   padding: 1em;
+}
+
+.wrapper nav ul li {
+  position: relative;
+}
+
+.wrapper nav ul li .sub-setting-wrapper {
+  position: absolute;
+  background: #d9d9d9;
+  text-align: center;
+  left: -100%;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.wrapper nav ul li .sub-setting-wrapper .arrow {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  transform: rotate(-45deg);
+  right: 13px;
+  top: -5px;
+  background: #d9d9d9;
+  z-index: -1;
+}
+
+.wrapper nav ul li .sub-setting-wrapper .actions:hover {
+  background: #b9b9b9;;
+}
+
+.wrapper nav ul li .sub-setting-wrapper .actions {
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  font-weight: 600;
+  width: 100%;
+  padding: .7em 0;
+  color: black;
+  z-index: 1;
+  font-size: 14px;
+  border-radius: 0;
 }
 
 /* Devs Container */
