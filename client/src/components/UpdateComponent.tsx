@@ -88,9 +88,9 @@ const UpdateComponent = () => {
                         </label>
                     </div>
                     <div className="label-wrapper stack-wrapper">
-                        <label htmlFor="ConfirmPassword">
+                        <label htmlFor="Bio">
                             <p> Bio </p>
-                            <textarea id="ConfirmPassword" name="confirm_password" onChange={ controlledInputs } placeholder="Bio..." value={ values?.confirm_password} ></textarea>
+                            <textarea id="Bio" name="confirm_password" onChange={ controlledInputs } placeholder="Bio..." value={ values?.confirm_password} ></textarea>
                         </label>
                     </div>
                     <div className="label-wrapper">
@@ -134,9 +134,9 @@ const UpdateComponent = () => {
                     </div>
                     <h2> Stacks </h2>
                     <div className="label-wrapper stack-wrapper">
-                        <label htmlFor="ConfirmPassword">
+                        <label htmlFor="Stacks">
                             <p> Stacks </p>
-                            <textarea id="ConfirmPassword" name="confirm_password" onChange={ controlledInputs } placeholder="Enter stack and add comma ( e.g: html, css, js )" value={ values?.confirm_password} ></textarea>
+                            <textarea id="Stacks" name="stacks" onChange={ controlledInputs } placeholder="Enter stack and add comma ( e.g: html, css, js )" value={ values?.confirm_password} ></textarea>
                         </label>
                     </div>
                     <h2> Social Links </h2>
