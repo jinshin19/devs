@@ -128,7 +128,7 @@ const UpdateComponent = () => {
                         <label htmlFor="Password">
                             <p> Password </p>
                             <div className="password-wrapper">
-                                <input id="Password" type="password" name="password" onChange={ controlledInputs } placeholder="Password ..." value={ values?.password} ref={ passwordRef } />
+                                <input id="Password" type="password" name="password" onChange={ controlledInputs } placeholder="Password..." value={ values?.password} ref={ passwordRef } />
                                 <ShowPassowrd password={ passwordRef } confirm_password={ confirmPasswordRef } />
                             </div>
                         </label>
@@ -136,7 +136,7 @@ const UpdateComponent = () => {
                     <div className="label-wrapper">
                         <label htmlFor="ConfirmPassword">
                             <p> Confirm Password </p>
-                            <input id="ConfirmPassword" type="password" name="confirm_password" onChange={ controlledInputs } placeholder="Confirm Password ..." value={ values?.confirm_password} ref={ confirmPasswordRef } />
+                            <input id="ConfirmPassword" type="password" name="confirm_password" onChange={ controlledInputs } placeholder="Confirm Password..." value={ values?.confirm_password} ref={ confirmPasswordRef } />
                         </label>
                     </div>
                     <h2> Stacks </h2>
