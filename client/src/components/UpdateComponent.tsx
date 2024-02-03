@@ -84,7 +84,7 @@ const UpdateComponent = () => {
                             <input id="File" type="file" name="file" onChange={ controlledInputs } placeholder="File..." hidden />
                         </label>
                     </div>
-                    <div className="label-wrapper stack-wrapper">
+                    <div className="label-wrapper bio-wrapper">
                         <label htmlFor="Bio">
                             <p> Bio </p>
                             <textarea id="Bio" name="confirm_password" onChange={ controlledInputs } placeholder="Bio..." value={ values?.confirm_password} ></textarea>
