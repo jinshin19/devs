@@ -12,7 +12,7 @@ type DevDataType = {
     lastname: string;
     stacks?: string;
     links?: string;
-    password: string;
+    password?: string;
     confirm_password?: string;
 }
 
