@@ -1,7 +1,7 @@
 import mysql, { QueryOptions } from 'mysql2/promise';
 import { StatementTypes } from '../types/types';
 
-export const performDatabaseConnection = async ( stmts: StatementTypes & QueryOptions, values: any ) => {
+export const performDatabaseConnection = async ( stmts: StatementTypes | any, values: any ) => {
 
     const pool = mysql.createPool(
         {
@@ -27,7 +27,7 @@ export const performDatabaseConnection = async ( stmts: StatementTypes & QueryOp
         if ( error ) {
 
             if ( error ) return {
-                error
+                error: "Error"
             }
             
         }
