@@ -4,10 +4,6 @@ const axiosInstance = axios.create({
     baseURL: BASE_URL
 })
 
-type IDTypes = {
-    id: ( string | number | undefined )
-}
-
 export const getAllDevsAPI = async () => {
     const { data } = await axiosInstance.get("/devs")
     return data
