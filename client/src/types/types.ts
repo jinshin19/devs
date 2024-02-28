@@ -8,8 +8,12 @@ export type UserValueTypes = {
 }
 
 export type DevTypes = {
+    id?: number | string;
     dev_id: string;
+    username?: string;
     firstname: string;
     middlename: string;
     lastname: string;
+    stacks?: [];
+    links?: [];
 }
