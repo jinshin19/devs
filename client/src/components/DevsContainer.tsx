@@ -1,16 +1,14 @@
-import { useGetDevsQuery } from "../services/queries"
+import { useGetDevsQuery } from "../services/queries";
 import { DevTypes } from "../types/types";
-import Devs from "./Devs"
+import Devs from "./Devs";
 
 const DevsContainer = () => {
-
   const { data } = useGetDevsQuery();
-
   return (
     <div className="devs-container">
-        { data && data?.map( ( d: DevTypes) => <Devs key={d?.dev_id} { ...d } /> ) }
+      {data && data?.data.map((d: DevTypes) => <Devs key={d?.id} {...d} />)}
     </div>
-  )
-}
+  );
+};
 
-export default DevsContainer
+export default DevsContainer;
