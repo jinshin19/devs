@@ -2,12 +2,11 @@ import { mysqlTable, varchar, text, int } from "drizzle-orm/mysql-core";
 
 export const devs = mysqlTable("devs", {
   id: varchar("id", { length: 256 }).primaryKey(),
-  username: text("name"),
-  firstname: text("name"),
-  middlename: text("name"),
-  lastname: text("name"),
-  stacks: text("name"),
-  links: text("name"),
-  password: text("name"),
-  confirm_password: text("name"),
+  username: text("username"),
+  firstname: text("firstname"),
+  middlename: text("middlename"),
+  lastname: text("lastname"),
+  stacks: text("stacks"),
+  links: text("links"),
+  password: varchar("password", { length: 256 }),
 });
