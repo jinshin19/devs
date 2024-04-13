@@ -6,6 +6,7 @@ export const devs = mysqlTable("devs", {
   firstname: text("firstname"),
   middlename: text("middlename"),
   lastname: text("lastname"),
+  bio: text("bio"),
   stacks: text("stacks"),
   links: text("links"),
   password: varchar("password", { length: 256 }),

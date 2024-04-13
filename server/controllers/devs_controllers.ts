@@ -26,6 +26,7 @@ export const getAllDevs = async (request: Request, response: Response) => {
         firstname: devs.firstname,
         middlename: devs.middlename,
         lastname: devs.lastname,
+        bio: devs.bio,
         stacks: devs.stacks,
         links: devs.links,
       })
@@ -50,6 +51,7 @@ export const getDevByID = async (request: Request, response: Response) => {
         firstname: devs.firstname,
         middlename: devs.middlename,
         lastname: devs.lastname,
+        bio: devs.bio,
         stacks: devs.stacks,
         links: devs.links,
       })
