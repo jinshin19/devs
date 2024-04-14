@@ -4,48 +4,28 @@ import { ulid } from "ulid";
 import { db } from "../database/database";
 import { devs } from "../schema";
 import { eq } from "drizzle-orm";
-
-type DevDataType = {
-  id?: string;
-  username: string;
-  firstname: string;
-  middlename?: string;
-  lastname: string;
-  bio: string;
-  stacks?: string;
-  links?: string;
-  password?: string;
-  confirm_password?: string;
-};
-
-type SignUpType = {
-  username: string;
-  firstname: string;
-  lastname: string;
-  password: string;
-  confirm_password: string;
-};
+import { GetAllDevDataTypes } from "../types/types";
 
 export const getAllDevs = async (request: Request, response: Response) => {
   try {
-    const data = await db
+    const data: GetAllDevDataTypes[] = await db
       .select({
         id: devs.id,
-        username: devs.username,
         firstname: devs.firstname,
         middlename: devs.middlename,
         lastname: devs.lastname,
-        bio: devs.bio,
-        stacks: devs.stacks,
-        links: devs.links,
       })
       .from(devs);
     return response.status(200).send({
+      message: "Fetched Successfully",
       data,
+      ok: true,
     });
   } catch (error) {
+    console.log("Error Fetch All Data:", error);
     return response.status(400).send({
-      error: error,
+      message: "Failed to fetched data",
+      ok: false,
     });
   }
 };
@@ -84,7 +64,7 @@ export const createDev = async (request: Request, response: Response) => {
     lastname,
     password: UserPassword,
     confirm_password,
-  }: SignUpType = request.body;
+  }: any = request.body;
   // Note to myself: I think I need to improve this, Instead of doing the validatiom here, why not in the frontend instead.
   if (!username && !firstname && !UserPassword && !confirm_password)
     return response.status(400).send({ message: "Fields are required" });
@@ -136,7 +116,7 @@ export const updateDevByID = async (request: Request, response: Response) => {
     stacks,
     links,
     password,
-  }: DevDataType = request.body;
+  }: any = request.body;
   if (
     !username &&
     !firstname &&
