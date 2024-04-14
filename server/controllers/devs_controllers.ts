@@ -4,7 +4,11 @@ import { ulid } from "ulid";
 import { db } from "../database/database";
 import { devs } from "../schema";
 import { eq } from "drizzle-orm";
-import { GetAllDevDataTypes } from "../types/types";
+import {
+  AddORUpdateDevDataTypes,
+  GetAllDevDataTypes,
+  GetDevDataTypes,
+} from "../types/types";
 
 export const getAllDevs = async (request: Request, response: Response) => {
   try {
@@ -33,7 +37,7 @@ export const getAllDevs = async (request: Request, response: Response) => {
 export const getDevByID = async (request: Request, response: Response) => {
   const { id } = request.params;
   try {
-    const data = await db
+    const data: GetDevDataTypes[] = await db
       .select({
         id: devs.id,
         username: devs.username,
@@ -64,13 +68,13 @@ export const createDev = async (request: Request, response: Response) => {
     lastname,
     password: UserPassword,
     confirm_password,
-  }: any = request.body;
+  }: AddORUpdateDevDataTypes = request.body;
   // Note to myself: I think I need to improve this, Instead of doing the validatiom here, why not in the frontend instead.
   if (!username && !firstname && !UserPassword && !confirm_password)
     return response.status(400).send({ message: "Fields are required" });
   if (!username)
     return response.status(400).send({ message: "Username is required" });
-  const isUsernameExist = await db
+  const isUsernameExist: { username: string | null }[] = await db
     .select({
       username: devs.username,
     })
@@ -116,7 +120,8 @@ export const updateDevByID = async (request: Request, response: Response) => {
     stacks,
     links,
     password,
-  }: any = request.body;
+  }: AddORUpdateDevDataTypes = request.body;
+  // Note to myself: Improve the change password, make a other page for it maybe.
   if (
     !username &&
     !firstname &&
