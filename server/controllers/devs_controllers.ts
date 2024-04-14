@@ -18,6 +18,14 @@ type DevDataType = {
   confirm_password?: string;
 };
 
+type SignUpType = {
+  username: string;
+  firstname: string;
+  lastname: string;
+  password: string;
+  confirm_password: string;
+};
+
 export const getAllDevs = async (request: Request, response: Response) => {
   try {
     const data = await db
@@ -73,28 +81,46 @@ export const createDev = async (request: Request, response: Response) => {
   const {
     username,
     firstname,
+    lastname,
     password: UserPassword,
     confirm_password,
-  }: DevDataType = request.body;
+  }: SignUpType = request.body;
+  // Note to myself: I think I need to improve this, Instead of doing the validatiom here, why not in the frontend instead.
   if (!username && !firstname && !UserPassword && !confirm_password)
     return response.status(400).send({ message: "Fields are required" });
   if (!username)
     return response.status(400).send({ message: "Username is required" });
+  const isUsernameExist = await db
+    .select({
+      username: devs.username,
+    })
+    .from(devs)
+    .where(eq(devs.username, username));
+  if (isUsernameExist.length)
+    return response
+      .status(409)
+      .send({ message: "Username is already taken", ok: false });
   if (!firstname)
     return response.status(400).send({ message: "Firstname is required" });
+  if (!lastname)
+    return response.status(400).send({ message: "Lastname is required" });
   if (!UserPassword)
     return response.status(400).send({ message: "Password is required" });
   if (UserPassword !== confirm_password)
     return response.status(400).send({ message: "Password not match" });
   const password = hashPassword(UserPassword);
+
   try {
     await db.insert(devs).values({ id, ...request.body, password });
     return response.status(200).send({
-      message: "Created Successfully",
+      message: "Signup Successfully",
+      ok: true,
     });
   } catch (error) {
+    console.log("Error Signup:", error);
     return response.status(400).send({
-      error: error,
+      message: "Failed to signup",
+      ok: false,
     });
   }
 };
