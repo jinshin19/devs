@@ -43,7 +43,13 @@ button {
 .devs-container,
 .wrapper .update-container .form-wrapper form .image-wrapper,
 .wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper,
-.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -84,7 +90,6 @@ button {
   width: 100%;
 }
 
-
 /* wrappers */
 .wrapper {
   width: 1300px;
@@ -121,7 +126,7 @@ button {
   left: 5px;
   background: white;
   border: 1px solid black;
-  padding: .3em .5em;
+  padding: 0.3em 0.5em;
   border-radius: 4px;
   font-size: 13px;
   z-index: 1;
@@ -134,30 +139,49 @@ button {
 
 .wrapper .form-wrapper form .label-wrapper label input {
   border: 1px solid black;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
 .wrapper .form-wrapper form .label-wrapper label .password-wrapper {
   position: relative;
 }
 
-.wrapper .form-wrapper form .label-wrapper label .password-wrapper button:active {
-  transform: scale(.95);
+.wrapper
+  .form-wrapper
+  form
+  .label-wrapper
+  label
+  .password-wrapper
+  button:active {
+  transform: scale(0.95);
 }
 
-.wrapper .form-wrapper form .label-wrapper label .password-wrapper .show-password {
+.wrapper
+  .form-wrapper
+  form
+  .label-wrapper
+  label
+  .password-wrapper
+  .show-password {
   position: absolute;
   right: 10px;
-  padding: .5em;
+  padding: 0.5em;
   margin: 0;
   font-size: 11px;
   border-radius: 2px;
   text-transform: uppercase;
   font-weight: 600;
-  transition: .1s ease-in-out;
+  transition: 0.1s ease-in-out;
 }
 
-.wrapper .form-wrapper form .label-wrapper label .password-wrapper .show-password button {
+.wrapper
+  .form-wrapper
+  form
+  .label-wrapper
+  label
+  .password-wrapper
+  .show-password
+  button {
   padding: 0;
   margin: 0;
   border: none;
@@ -190,7 +214,7 @@ button {
 }
 
 .wrapper .about-wrapper .title-wrapper {
-  margin-bottom: 1em; 
+  margin-bottom: 1em;
 }
 
 .wrapper .about-wrapper .title-wrapper p {
@@ -284,7 +308,7 @@ button {
   display: block;
   font-weight: 600;
   width: 100%;
-  padding: .7em 0;
+  padding: 0.7em 0;
   color: black;
   z-index: 1;
   font-size: 14px;
@@ -346,14 +370,26 @@ button {
   display: block;
 }
 
+.wrapper .read-container .read-content-wrapper .name-wrapper {
+  margin-top: 1em;
+}
+
 .wrapper .read-container .read-content-wrapper .name-wrapper p {
   display: block;
   text-align: center;
-  padding: 1em 0;
   font-weight: 600;
   font-size: 1.2em;
+  margin-bottom: 0.2em;
 }
 
+.wrapper .read-container .read-content-wrapper .name-wrapper small {
+  text-align: center;
+  display: block;
+}
+
+.wrapper .read-container .read-content-wrapper .bio-wrapper {
+  margin: 1em 0 1.2em;
+}
 .wrapper .read-container .read-content-wrapper .bio-wrapper p {
   padding: 1em;
   word-wrap: break-word;
@@ -369,7 +405,7 @@ button {
 .wrapper .read-container .read-content-wrapper .stacks-wrapper ul,
 .wrapper .read-container .read-content-wrapper .links-wrapper ul {
   padding: 0 1em;
-  margin-top: .3em;
+  margin-top: 0.3em;
   margin-left: 1em;
   width: 100%;
 }
@@ -377,7 +413,7 @@ button {
 .wrapper .read-container .read-content-wrapper .stacks-wrapper ul li,
 .wrapper .read-container .read-content-wrapper .links-wrapper ul li {
   list-style: disc;
-  padding: .3em 0;
+  padding: 0.3em 0;
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -416,7 +452,13 @@ button {
 }
 
 .wrapper .update-container .form-wrapper form .image-wrapper .image-container,
-.wrapper .update-container .form-wrapper form .image-wrapper .image-container img {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .image-wrapper
+  .image-container
+  img {
   width: 120px;
   height: 120px;
   border-radius: 50em;
@@ -426,15 +468,27 @@ button {
   display: block;
 }
 
-.wrapper .update-container .form-wrapper form .image-wrapper label p:nth-child(1) {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .image-wrapper
+  label
+  p:nth-child(1) {
   margin: 1em 0;
 }
 
-.wrapper .update-container .form-wrapper form .image-wrapper label p:nth-child(2) {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .image-wrapper
+  label
+  p:nth-child(2) {
   display: block;
   width: 100%;
   border: 1px solid;
-  padding: .5em;
+  padding: 0.5em;
   border-radius: 5px;
   font-weight: 600;
   text-transform: uppercase;
@@ -442,7 +496,13 @@ button {
   text-align: center;
 }
 
-.wrapper .update-container .form-wrapper form .label-wrapper label textarea::-webkit-scrollbar {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  label
+  textarea::-webkit-scrollbar {
   width: 0;
 }
 
@@ -463,20 +523,39 @@ button {
   border-radius: 5px;
 }
 
-
-.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs {
   /* background: red; */
-  margin: .5em 0;
+  margin: 0.5em 0;
 }
 
-.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs input {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs
+  input {
   flex: 1;
   border: 1px solid black;
-  margin: 0 .5em;
+  margin: 0 0.5em;
   border-radius: 5px;
 }
 
-.wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper .inputs button {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs
+  button {
   padding: 1em;
   margin: 0;
 }
@@ -485,6 +564,12 @@ button {
   padding: 1em 0;
 }
 
-.wrapper .update-container .form-wrapper form .label-wrapper .add-wrapper button {
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .add-wrapper
+  button {
   width: 100%;
 }
