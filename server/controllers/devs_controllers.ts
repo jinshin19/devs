@@ -11,6 +11,7 @@ type DevDataType = {
   firstname: string;
   middlename?: string;
   lastname: string;
+  bio: string;
   stacks?: string;
   links?: string;
   password?: string;
@@ -105,6 +106,7 @@ export const updateDevByID = async (request: Request, response: Response) => {
     firstname,
     middlename,
     lastname,
+    bio,
     stacks,
     links,
     password,
@@ -114,6 +116,7 @@ export const updateDevByID = async (request: Request, response: Response) => {
     !firstname &&
     !middlename &&
     !lastname &&
+    !bio &&
     !stacks &&
     !links &&
     !password
