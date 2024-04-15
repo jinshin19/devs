@@ -3,16 +3,26 @@ import { Link } from "react-router-dom";
 import { SignupDevTypes } from "../../types/types";
 import ShowPassword from "../../components/ShowPassword";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useCreateDev } from "../../services/mutation";
+
+/**
+ * note to myself:
+ * Improved this later, make the validation here instead doing that in the backend,
+ * validation for the username, firstname, lastname values. if === 0 then required
+ */
 
 const Signup = () => {
   const [show, setShow] = useState(false);
+  const createDev = useCreateDev();
 
-  const { register, handleSubmit } = useForm<SignupDevTypes>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupDevTypes>();
 
   const signUpHandler: SubmitHandler<SignupDevTypes> = (data) => {
-    console.log(data);
-    Modify the existing mutation in the services folder
-    change the url to '/devs/auth/signin'
+    createDev.mutate(data);
   };
 
   return (
@@ -24,23 +34,32 @@ const Signup = () => {
           </div>
           <div className="label-wrapper">
             <label htmlFor="Username">
-              <p> Username </p>
+              {errors?.username?.type == "required" ? (
+                <p> Username is required </p>
+              ) : (
+                <p> Username </p>
+              )}
               <input
                 id="Username"
                 type="text"
                 placeholder="Username..."
-                {...register("username")}
+                {...register("username", { required: true })}
+                aria-invalid
               />
             </label>
           </div>
           <div className="label-wrapper">
             <label htmlFor="Firstname">
-              <p> Firstname </p>
+              {errors?.firstname ? (
+                <p> Firstname is required </p>
+              ) : (
+                <p> Firstname </p>
+              )}
               <input
                 id="Firstname"
                 type="text"
                 placeholder="Firstname..."
-                {...register("firstname")}
+                {...register("firstname", { required: true })}
               />
             </label>
           </div>
@@ -57,13 +76,17 @@ const Signup = () => {
           </div>
           <div className="label-wrapper">
             <label htmlFor="Password">
-              <p> Password </p>
+              {errors?.password ? (
+                <p> Password is required </p>
+              ) : (
+                <p> Password </p>
+              )}
               <div className="password-wrapper">
                 <input
                   id="Password"
                   type={show ? "text" : "password"}
                   placeholder="Password ..."
-                  {...register("password")}
+                  {...register("password", { required: true })}
                 />
                 <ShowPassword show={show} setShow={setShow} />
               </div>
