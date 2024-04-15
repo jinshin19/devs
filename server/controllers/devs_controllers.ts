@@ -86,8 +86,6 @@ export const createDev = async (request: Request, response: Response) => {
       .send({ message: "Username is already taken", ok: false });
   if (!firstname)
     return response.status(400).send({ message: "Firstname is required" });
-  if (!lastname)
-    return response.status(400).send({ message: "Lastname is required" });
   if (!UserPassword)
     return response.status(400).send({ message: "Password is required" });
   if (UserPassword !== confirm_password)
