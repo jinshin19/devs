@@ -6,7 +6,7 @@ type DevTypes = {
 export type LoginDevTypes = {
   username: string;
   password: string;
-}
+};
 
 export type SignupDevTypes = DevTypes & {
   username: string;
