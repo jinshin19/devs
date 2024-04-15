@@ -18,7 +18,11 @@ const ReadComponent = ({
           <img src={imagePlaceholder} alt="image" />
         </div>
         <div className="name-wrapper">
-          <p>{`${firstname} ${middlename} ${lastname}`}</p>
+          <p>
+            {firstname && `${firstname} `}
+            {middlename && `${middlename} `}
+            {lastname && `${lastname} `}
+          </p>
           <small>{username && `@${username}`}</small>
         </div>
         <div className="bio-wrapper">

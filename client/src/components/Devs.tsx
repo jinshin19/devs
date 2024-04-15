@@ -9,7 +9,11 @@ const Devs = ({ id, firstname, middlename, lastname }: DevTypes) => {
         <img src={imagePlaceHolder} alt="" />
       </div>
       <div className="content-wrapper">
-        <p> {`${firstname} ${middlename} ${lastname}`} </p>
+        <p>
+          {firstname && `${firstname} `}
+          {middlename && `${middlename} `}
+          {lastname && `${lastname} `}
+        </p>
       </div>
     </Link>
   );
