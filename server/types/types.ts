@@ -9,6 +9,11 @@ export type SignupDevTypes = DevTypes & {
   confirm_password: string;
 };
 
+export type LoginDevTypes = {
+  username: string | null;
+  password: string | null;
+};
+
 export type GetAllDevDataTypes = DevTypes & {
   id: string;
   middlename: string | null;
