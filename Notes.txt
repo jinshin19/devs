@@ -1,6 +1,6 @@
 NOTES:
 
 1) Login:
-   a) if login status is ok, return the also the ID in the response
+   a) if login status is ok, return also the ID in the response
    b) use the ID and store it to localstorage. ( use cookies or tokenize )
    3) current ID stored in the localstorage will be use in the update profile page
