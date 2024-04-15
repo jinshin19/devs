@@ -8,6 +8,7 @@ import {
   AddORUpdateDevDataTypes,
   GetAllDevDataTypes,
   GetDevDataTypes,
+  LoginDevTypes,
 } from "../types/types";
 
 export const getAllDevs = async (request: Request, response: Response) => {
@@ -65,7 +66,6 @@ export const createDev = async (request: Request, response: Response) => {
   const {
     username,
     firstname,
-    lastname,
     password: UserPassword,
     confirm_password,
   }: AddORUpdateDevDataTypes = request.body;
@@ -95,7 +95,7 @@ export const createDev = async (request: Request, response: Response) => {
   try {
     await db.insert(devs).values({ id, ...request.body, password });
     return response.status(200).send({
-      message: "Signup Successfully",
+      message: "Signed up Successfully",
       ok: true,
     });
   } catch (error) {
@@ -105,6 +105,21 @@ export const createDev = async (request: Request, response: Response) => {
       ok: false,
     });
   }
+};
+
+export const loginDev = async (request: Request, response: Response) => {
+  const { username, password } = await request.body;
+  const result = await db
+    .select({ username: devs.username, password: devs.password })
+    .from(devs)
+    .where(eq(devs.username, username));
+  if (!result.length)
+    return response.status(404).send({ message: "Wrong username or password" });
+  const isMatched = compareHashedPassword(password, result[0]?.password!);
+  if (!isMatched)
+    return response.status(404).send({ message: "Wrong username or password" });
+  // note to myself: improve this, return a json here or do middleware
+  return response.status(200).send({ message: "Logged in successfully" });
 };
 
 export const updateDevByID = async (request: Request, response: Response) => {
