@@ -8,8 +8,8 @@ export const useCreateDev = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (data: SignupDevTypes) => createDevAPI(data),
-    onSuccess: () => {
-      toast.success("Signed in successfully");
+    onSuccess: ({ data }) => {
+      toast.success(data?.message);
       navigate("/login");
     },
     onSettled: (_, error) => {
@@ -22,9 +22,12 @@ export const useLoginDev = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (data: LoginDevTypes) => LoginDevAPI(data),
-    onSuccess: () => {
-      toast.success("Logged in successfully");
+    onSuccess: ({ data }) => {
+      toast.success(data?.message);
       navigate("/");
+    },
+    onSettled: (_, error) => {
+      if (error) return toast.error(error?.response.data.message);
     },
   });
 };
