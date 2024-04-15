@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SignupDevTypes } from "../types/types";
 const BASE_URL = "http://localhost:5000/api";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -15,5 +16,5 @@ export const getDevsByIDAPI = async (args: object) => {
   return data;
 };
 
-export const createDevAPI = async (data) =>
-  await axiosInstance.post("/devs", data);
+export const createDevAPI = async (data: SignupDevTypes) =>
+  await axiosInstance.post("/devs/signup", data);
