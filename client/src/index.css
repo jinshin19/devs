@@ -132,6 +132,11 @@ button {
   z-index: 1;
 }
 
+.wrapper .form-wrapper form .label-wrapper label .required {
+  color: red;
+  border: 1px solid rgb(255 25 25);
+}
+
 .wrapper .form-wrapper form .label-wrapper label input:focus {
   font-size: 15px;
   border-radius: 5px;
