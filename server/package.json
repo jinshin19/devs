@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./build/index.js",
     "build": "tsc -p",
-    "server": "nodemon ./src/index.ts"
+    "server": "nodemon ./src/index.ts",
+    "migration:generate": "pnpm drizzle-kit generate:mysql",
+    "migration:push": "pnpm drizzle-kit push:mysql"
   },
   "keywords": [],
   "author": "",
