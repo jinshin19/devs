@@ -4,3 +4,6 @@ NOTES:
    a) if login status is ok, return also the ID in the response
    b) use the ID and store it to localstorage. ( use cookies or tokenize )
    3) current ID stored in the localstorage will be use in the update profile page
+
+2) Relations
+   a) Study relations
