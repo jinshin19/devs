@@ -35,7 +35,7 @@ const Signup = () => {
           <div className="label-wrapper">
             <label htmlFor="Username">
               {errors?.username?.type == "required" ? (
-                <p> Username is required </p>
+                <p className="required"> Username is required </p>
               ) : (
                 <p> Username </p>
               )}
@@ -51,7 +51,7 @@ const Signup = () => {
           <div className="label-wrapper">
             <label htmlFor="Firstname">
               {errors?.firstname ? (
-                <p> Firstname is required </p>
+                <p className="required"> Firstname is required </p>
               ) : (
                 <p> Firstname </p>
               )}
@@ -77,7 +77,7 @@ const Signup = () => {
           <div className="label-wrapper">
             <label htmlFor="Password">
               {errors?.password ? (
-                <p> Password is required </p>
+                <p className="required"> Password is required </p>
               ) : (
                 <p> Password </p>
               )}
