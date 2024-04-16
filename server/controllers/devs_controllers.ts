@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { hashPassword, compareHashedPassword } from "../utils/password_helper";
 import { ulid } from "ulid";
 import { db } from "../database/database";
-import { devs, hobbies } from "../schema";
+import { devs } from "../schema";
 import { eq } from "drizzle-orm";
 import {
   Dev,
@@ -135,7 +135,11 @@ export const updateDevByID = async (request: Request, response: Response) => {
     links,
     password,
   }: Me = request.body;
-  // Note to myself: Improve the change password, make a other page for it maybe.
+  /**
+   * Note to myself:
+   * 1) Improve the change password, make a other page for it maybe.
+   * 2) Leave the links like that or make a seperate table for links and use relations, then use transaction to insert both update and links
+   * */ 
   if (
     !username &&
     !firstname &&
