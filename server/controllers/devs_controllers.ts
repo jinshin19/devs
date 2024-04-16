@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { hashPassword, compareHashedPassword } from "../utils/password_helper";
 import { ulid } from "ulid";
 import { db } from "../database/database";
-import { devs } from "../schema";
+import { devs, hobbies } from "../schema";
 import { eq } from "drizzle-orm";
 import {
   Dev,
@@ -79,9 +79,9 @@ export const createDev = async (request: Request, response: Response) => {
   const isUsernameExist: DevUsername | undefined =
     await db.query.devs.findFirst({
       columns: { username: true },
-      where: eq(devs.id, id),
+      where: eq(devs.username, username),
     });
-  if (!isUsernameExist)
+  if (isUsernameExist)
     return response
       .status(409)
       .send({ message: "Username is already taken", ok: false });
