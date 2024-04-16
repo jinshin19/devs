@@ -5,22 +5,24 @@ import { db } from "../database/database";
 import { devs } from "../schema";
 import { eq } from "drizzle-orm";
 import {
-  AddORUpdateDevDataTypes,
-  GetAllDevDataTypes,
-  GetDevDataTypes,
-  LoginDevTypes,
+  Dev,
+  DevCredential,
+  Devs,
+  DevUsername,
+  Me,
+  NewDev,
 } from "../types/types";
 
 export const getAllDevs = async (request: Request, response: Response) => {
   try {
-    const data: GetAllDevDataTypes[] = await db
-      .select({
-        id: devs.id,
-        firstname: devs.firstname,
-        middlename: devs.middlename,
-        lastname: devs.lastname,
-      })
-      .from(devs);
+    const data: Devs[] = await db.query.devs.findMany({
+      columns: {
+        id: true,
+        firstname: true,
+        middlename: true,
+        lastname: true,
+      },
+    });
     return response.status(200).send({
       message: "Fetched Successfully",
       data,
@@ -38,19 +40,19 @@ export const getAllDevs = async (request: Request, response: Response) => {
 export const getDevByID = async (request: Request, response: Response) => {
   const { id } = request.params;
   try {
-    const data: GetDevDataTypes[] = await db
-      .select({
-        id: devs.id,
-        username: devs.username,
-        firstname: devs.firstname,
-        middlename: devs.middlename,
-        lastname: devs.lastname,
-        bio: devs.bio,
-        stacks: devs.stacks,
-        links: devs.links,
-      })
-      .from(devs)
-      .where(eq(devs.id, id));
+    const data: Dev | undefined = await db.query.devs.findFirst({
+      columns: {
+        id: true,
+        username: true,
+        firstname: true,
+        middlename: true,
+        lastname: true,
+        bio: true,
+        stacks: true,
+        links: true,
+      },
+      where: eq(devs.id, id),
+    });
     return response.status(200).send({
       data,
     });
@@ -68,19 +70,18 @@ export const createDev = async (request: Request, response: Response) => {
     firstname,
     password: UserPassword,
     confirm_password,
-  }: AddORUpdateDevDataTypes = request.body;
+  }: NewDev = request.body;
   // Note to myself: I think I need to improve this, Instead of doing the validatiom here, why not in the frontend instead.
   if (!username && !firstname && !UserPassword && !confirm_password)
     return response.status(400).send({ message: "Fields are required" });
   if (!username)
     return response.status(400).send({ message: "Username is required" });
-  const isUsernameExist: { username: string | null }[] = await db
-    .select({
-      username: devs.username,
-    })
-    .from(devs)
-    .where(eq(devs.username, username));
-  if (isUsernameExist.length)
+  const isUsernameExist: DevUsername | undefined =
+    await db.query.devs.findFirst({
+      columns: { username: true },
+      where: eq(devs.id, id),
+    });
+  if (!isUsernameExist)
     return response
       .status(409)
       .send({ message: "Username is already taken", ok: false });
@@ -108,14 +109,14 @@ export const createDev = async (request: Request, response: Response) => {
 };
 
 export const loginDev = async (request: Request, response: Response) => {
-  const { username, password } = await request.body;
-  const result = await db
-    .select({ username: devs.username, password: devs.password })
-    .from(devs)
-    .where(eq(devs.username, username));
-  if (!result.length)
+  const { username, password }: DevCredential = await request.body;
+  const result: DevCredential | undefined = await db.query.devs.findFirst({
+    columns: { username: true, password: true },
+    where: eq(devs.username, username!),
+  });
+  if (!result)
     return response.status(404).send({ message: "Wrong username or password" });
-  const isMatched = compareHashedPassword(password, result[0]?.password!);
+  const isMatched = compareHashedPassword(password!, result?.password!);
   if (!isMatched)
     return response.status(404).send({ message: "Wrong username or password" });
   // note to myself: improve this, return a json here or do middleware
@@ -133,7 +134,7 @@ export const updateDevByID = async (request: Request, response: Response) => {
     stacks,
     links,
     password,
-  }: AddORUpdateDevDataTypes = request.body;
+  }: Me = request.body;
   // Note to myself: Improve the change password, make a other page for it maybe.
   if (
     !username &&

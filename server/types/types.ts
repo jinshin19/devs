@@ -1,32 +1,37 @@
-type DevTypes = {
-  firstname: string | null;
-  lastname: string | null;
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
+import { devs } from "../schema/index";
+
+export type Me = InferSelectModel<typeof devs>;
+
+export type Devs = Pick<
+  InferSelectModel<typeof devs>,
+  "id" | "firstname" | "middlename" | "lastname"
+>;
+
+export type Dev = Pick<
+  InferSelectModel<typeof devs>,
+  | "id"
+  | "username"
+  | "firstname"
+  | "middlename"
+  | "lastname"
+  | "bio"
+  | "stacks"
+  | "links"
+>;
+
+export type DevUsername = Pick<Dev, "username">;
+
+export type DevCredential = Pick<
+  InferSelectModel<typeof devs>,
+  "username" | "password"
+>;
+
+export type LoginDev = Pick<DevUsername, "username"> & {
+  password: string | null | undefined;
 };
 
-export type SignupDevTypes = DevTypes & {
-  username: string;
-  password: string;
-  confirm_password: string;
-};
-
-export type LoginDevTypes = {
-  username: string | null;
-  password: string | null;
-};
-
-export type GetAllDevDataTypes = DevTypes & {
-  id: string;
-  middlename: string | null;
-};
-
-export type GetDevDataTypes = GetAllDevDataTypes & {
-  bio: string | null;
-  stacks: string | null;
-  links: string | null;
-};
-
-export type AddORUpdateDevDataTypes = GetDevDataTypes & {
-  username: string | null;
-  password: string | null;
-  confirm_password: string | null;
-};
+export type NewDev = Pick<
+  InferInsertModel<typeof devs>,
+  "username" | "firstname" | "password"
+> & { confirm_password: string | null };
