@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
 import { settingAtom } from "../atoms/use_toggler";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Sub_Settings = () => {
   const [show] = useAtom(settingAtom);
-
+  const id = localStorage.getItem("temporaryStorage_ID");
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
@@ -15,10 +15,10 @@ const Sub_Settings = () => {
       <div className="sub-setting-wrapper">
         <div className="arrow"></div>
         <div className="actions-wrapper">
-          <a href="/" className="actions">
+          <Link to={`/update/${id}`} className="actions">
             {" "}
             Profile{" "}
-          </a>
+          </Link>
           <button type="button" onClick={logoutHandler} className="actions">
             {" "}
             logout{" "}
