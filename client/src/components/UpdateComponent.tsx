@@ -27,7 +27,7 @@ const UpdateComponent = () => {
   const deleteLinkHandler = (index: number) => remove(index);
 
   const updateHandler: SubmitHandler<AddORUpdateDevDataTypes> = (data) => {
-    updateDev.mutate(data);
+    updateDev.mutate({ ...(id ? { id } : {}), ...data });
   };
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const UpdateComponent = () => {
     <div className="update-container">
       <div className="form-wrapper">
         <form onSubmit={handleSubmit(updateHandler)}>
-          <input type="hidden" value={id} />
+          <input type="hidden" name="id" value={id} />
           <div className="title-wrapper">
             <p> Update </p>
           </div>
