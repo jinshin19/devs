@@ -1,8 +1,7 @@
 import imagePlaceholder from "../assets/image-placeholder.png";
-import { DevTypes } from "../types/types";
+// import { GetDevDataTypes } from "../types/types";
 
 const ReadComponent = ({
-  id,
   username,
   firstname,
   middlename,
@@ -10,7 +9,15 @@ const ReadComponent = ({
   bio,
   stacks,
   links,
-}: DevTypes) => {
+}: {
+  // fix this, think a better type for this
+  username: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  bio: string;
+  stacks: [];
+}) => {
   return (
     <div className="read-container">
       <div className="read-content-wrapper">
@@ -34,7 +41,9 @@ const ReadComponent = ({
           </div>
           <ul>
             {stacks ? (
-              stacks?.map((stack, key) => <li key={key}>{stack}</li>)
+              stacks?.map((stack: string, key: number) => (
+                <li key={key}>{stack}</li>
+              ))
             ) : (
               <li>No stacks to show</li>
             )}
@@ -45,10 +54,10 @@ const ReadComponent = ({
             <p> Social Links </p>
           </div>
           <ul>
-            {links ? (
-              links?.map((link) => (
+            {links && JSON.parse(links).length ? (
+              links?.map((link: { title: string; link: string }) => (
                 <li>
-                  <a href="#">{link}</a>
+                  <a href={link.link}>{link.title}</a>
                 </li>
               ))
             ) : (
