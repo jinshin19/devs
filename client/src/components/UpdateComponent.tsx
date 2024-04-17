@@ -40,15 +40,15 @@ const UpdateComponent = () => {
       setValue("middlename", data?.data.middlename);
       setValue("lastname", data?.data.lastname);
       setValue("stacks", data?.data.stacks);
-      data?.data.links?.map(
+      const parsedLinks = data.data.links && JSON.parse(data.data.links);
+      parsedLinks.forEach(
         ({ title, link }: { title: string; link: string }) => {
-          setValue("links.title", title);
-          setValue("links.link", link);
+          append({ title, link });
         }
       );
     };
     fetchData();
-  }, [id, setValue]);
+  }, [id, setValue, append]);
 
   return (
     <div className="update-container">
