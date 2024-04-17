@@ -124,22 +124,24 @@ export const loginDev = async (request: Request, response: Response) => {
 };
 
 export const updateDevByID = async (request: Request, response: Response) => {
-  const { id } = request.params;
+  /**
+   * Note to myself:
+   * 1) Improve the change password, make a other page for it maybe.
+   * 2) Leave the links like that or make a seperate table for links and use relations, then use transaction to insert both update and links
+   * 3) if id is not present return 409 status that says unauthorized or forbidden 403 or make a middleware here before to update, validate if user is authenticated etc
+   * */
   const {
+    id,
     username,
     firstname,
     middlename,
     lastname,
     bio,
     stacks,
-    links,
+    links: UserLinks,
     password,
   }: Me = request.body;
-  /**
-   * Note to myself:
-   * 1) Improve the change password, make a other page for it maybe.
-   * 2) Leave the links like that or make a seperate table for links and use relations, then use transaction to insert both update and links
-   * */ 
+  const links = JSON.stringify(UserLinks);
   if (
     !username &&
     !firstname &&
@@ -156,12 +158,13 @@ export const updateDevByID = async (request: Request, response: Response) => {
   try {
     await db
       .update(devs)
-      .set({ ...request.body })
+      .set({ ...request.body, links })
       .where(eq(devs.id, id));
     return response.status(200).send({
       message: "Updated Successfully",
     });
   } catch (error) {
+    console.log("Error Update:", error);
     return response.status(400).send({
       error: error,
     });
@@ -174,6 +177,7 @@ export const deleteDevByID = async (request: Request, response: Response) => {
     await db.delete(devs).where(eq(devs.id, id));
     return response.status(200).send({ message: "Deleted successfully" });
   } catch (error) {
+    console.log("Error Delete:", error);
     return response.status(400).send({ message: "Failed to delete" });
   }
 };
