@@ -11,7 +11,7 @@ const Read = () => {
   return (
     <div className="wrapper read-wrapper">
       <Nav />
-      <ReadComponent {...data?.data[0]} />
+      <ReadComponent {...data?.data} />
       <Footer />
     </div>
   );
