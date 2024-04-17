@@ -24,7 +24,7 @@ export type DevUsername = Pick<Dev, "username">;
 
 export type DevCredential = Pick<
   InferSelectModel<typeof devs>,
-  "username" | "password"
+  "id" | "username" | "password"
 >;
 
 export type LoginDev = Pick<DevUsername, "username"> & {
