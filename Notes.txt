@@ -7,3 +7,7 @@ NOTES:
 
 2) Relations
    a) Study relations
+
+3) Settings
+   a) Fix the settings pop up, it is the atom.
+   b) Make a logic which if user clicks outside of the settings then setting nav should close.

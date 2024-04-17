@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import imagePlaceholder from "../assets/image-placeholder.png";
 // import { GetDevDataTypes } from "../types/types";
 
@@ -57,7 +58,7 @@ const ReadComponent = ({
               JSON.parse(links)?.map(
                 (link: { title: string; link: string }, key: number) => (
                   <li key={key}>
-                    <a href={link.link}>{link.title}</a>
+                    <Link to={link.link}>{link.title}</Link>
                   </li>
                 )
               )
