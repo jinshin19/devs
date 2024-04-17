@@ -111,7 +111,7 @@ export const createDev = async (request: Request, response: Response) => {
 export const loginDev = async (request: Request, response: Response) => {
   const { username, password }: DevCredential = await request.body;
   const result: DevCredential | undefined = await db.query.devs.findFirst({
-    columns: { username: true, password: true },
+    columns: { id: true, username: true, password: true },
     where: eq(devs.username, username!),
   });
   if (!result)
@@ -119,8 +119,10 @@ export const loginDev = async (request: Request, response: Response) => {
   const isMatched = compareHashedPassword(password!, result?.password!);
   if (!isMatched)
     return response.status(404).send({ message: "Wrong username or password" });
-  // note to myself: improve this, return a json here or do middleware
-  return response.status(200).send({ message: "Logged in successfully" });
+  // note to myself: improve this, return a json with token here or do middleware
+  return response
+    .status(200)
+    .send({ message: "Logged in successfully", data: result });
 };
 
 export const updateDevByID = async (request: Request, response: Response) => {
