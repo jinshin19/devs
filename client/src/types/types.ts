@@ -1,3 +1,8 @@
+type LinkType = {
+  title: string | null;
+  link: string | null;
+};
+
 type DevTypes = {
   firstname: string | null;
   lastname: string | null;
@@ -22,7 +27,7 @@ export type GetAllDevDataTypes = DevTypes & {
 export type GetDevDataTypes = GetAllDevDataTypes & {
   bio: string | null;
   stacks: string | null;
-  links: string | null;
+  links: LinkType;
 };
 
 export type AddORUpdateDevDataTypes = GetDevDataTypes & {
