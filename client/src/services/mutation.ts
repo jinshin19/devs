@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import { createDevAPI, LoginDevAPI } from "./api";
+import { createDevAPI, LoginDevAPI, updateDevAPI } from "./api";
 import { toast } from "react-toastify";
-import { LoginDevTypes, SignupDevTypes } from "../types/types";
+import {
+  AddORUpdateDevDataTypes,
+  LoginDevTypes,
+  SignupDevTypes,
+} from "../types/types";
 import { useNavigate } from "react-router-dom";
 
 export const useCreateDev = () => {
@@ -22,6 +26,20 @@ export const useLoginDev = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: (data: LoginDevTypes) => LoginDevAPI(data),
+    onSuccess: ({ data }) => {
+      toast.success(data?.message);
+      navigate("/");
+    },
+    onSettled: (_, error) => {
+      if (error) return toast.error(error?.response.data.message);
+    },
+  });
+};
+
+export const useUpdateDev = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: (data: AddORUpdateDevDataTypes) => updateDevAPI(data),
     onSuccess: ({ data }) => {
       toast.success(data?.message);
       navigate("/");

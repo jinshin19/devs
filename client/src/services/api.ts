@@ -1,7 +1,11 @@
 import axios from "axios";
-import { LoginDevTypes, SignupDevTypes } from "../types/types";
+import {
+  AddORUpdateDevDataTypes,
+  LoginDevTypes,
+  SignupDevTypes,
+} from "../types/types";
 const BASE_URL = "http://localhost:5000/api";
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
@@ -21,3 +25,6 @@ export const createDevAPI = async (data: SignupDevTypes) =>
 
 export const LoginDevAPI = async (data: LoginDevTypes) =>
   await axiosInstance.post("/devs/signin", data);
+
+export const updateDevAPI = async (data: AddORUpdateDevDataTypes) =>
+  await axiosInstance.put("/devs/update", data);
