@@ -108,6 +108,20 @@ export const createDev = async (request: Request, response: Response) => {
   }
 };
 
+export const isAuthorized = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const { id } = request.params;
+  if (!id) return response.status(401).send({ message: "Unauthorized" });
+  const result = await db.query.devs.findFirst({
+    columns: { id: true, username: true },
+    where: eq(devs.id, id),
+  });
+  if (!result) return response.status(401).send({ message: "Unauthorized" });
+  return response.status(200).send({ message: "Authorized" });
+};
+
 export const loginDev = async (request: Request, response: Response) => {
   const { username, password }: DevCredential = await request.body;
   const result: DevCredential | undefined = await db.query.devs.findFirst({
@@ -130,7 +144,7 @@ export const updateDevByID = async (request: Request, response: Response) => {
    * Note to myself:
    * 1) Improve the change password, make a other page for it maybe.
    * 2) Leave the links like that or make a seperate table for links and use relations, then use transaction to insert both update and links
-   * 3) if id is not present return 409 status that says unauthorized or forbidden 403 or make a middleware here before to update, validate if user is authenticated etc
+   * 3) if id is not present return 401 status that says unauthorized or forbidden 403 or make a middleware here before to update, validate if user is authenticated etc
    * */
   const {
     id,
