@@ -25,6 +25,7 @@ export type GetAllDevDataTypes = DevTypes & {
 };
 
 export type GetDevDataTypes = GetAllDevDataTypes & {
+  username: string | null;
   bio: string | null;
   stacks: string | null;
   links: LinkType;
