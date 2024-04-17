@@ -16,7 +16,6 @@ const ReadComponent = ({
   middlename: string;
   lastname: string;
   bio: string;
-  stacks: [];
 }) => {
   return (
     <div className="read-container">
@@ -40,12 +39,12 @@ const ReadComponent = ({
             <p> Stacks </p>
           </div>
           <ul>
-            {stacks ? (
-              stacks?.map((stack: string, key: number) => (
-                <li key={key}>{stack}</li>
-              ))
+            {stacks && stacks.indexOf(",") > 0 ? (
+              stacks
+                .split(",")
+                .map((stack: string, key: number) => <li key={key}>{stack}</li>)
             ) : (
-              <li>No stacks to show</li>
+              <li>No Stacks to show</li>
             )}
           </ul>
         </div>
@@ -55,11 +54,13 @@ const ReadComponent = ({
           </div>
           <ul>
             {links && JSON.parse(links).length ? (
-              links?.map((link: { title: string; link: string }) => (
-                <li>
-                  <a href={link.link}>{link.title}</a>
-                </li>
-              ))
+              JSON.parse(links)?.map(
+                (link: { title: string; link: string }, key: number) => (
+                  <li key={key}>
+                    <a href={link.link}>{link.title}</a>
+                  </li>
+                )
+              )
             ) : (
               <li>No Social Links to show</li>
             )}
