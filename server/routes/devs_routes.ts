@@ -14,5 +14,5 @@ devsRoutes.get("/devs", getAllDevs);
 devsRoutes.get("/devs/:id", getDevByID);
 devsRoutes.post("/devs/signup", createDev);
 devsRoutes.post("/devs/signin", loginDev);
-devsRoutes.put("/devs/:id", updateDevByID);
+devsRoutes.put("/devs/update", updateDevByID);
 devsRoutes.delete("/devs/:id", deleteDevByID);
