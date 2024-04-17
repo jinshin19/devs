@@ -28,6 +28,9 @@ export const useLoginDev = () => {
     mutationFn: (data: LoginDevTypes) => LoginDevAPI(data),
     onSuccess: ({ data }) => {
       toast.success(data?.message);
+      // Note to myself: Improved this, use cookies instead.
+      localStorage.setItem("temporaryStorage_ID", data.data?.id);
+      localStorage.setItem("temporaryStorage_USERNAME", data.data?.username);
       navigate("/");
     },
     onSettled: (_, error) => {
