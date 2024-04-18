@@ -7,6 +7,8 @@ const Sub_Settings = () => {
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
+    localStorage.removeItem("temporaryStorage_USERNAME");
+    localStorage.removeItem("temporaryStorage_ID");
     navigate("/login");
   };
 
