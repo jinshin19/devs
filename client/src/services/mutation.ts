@@ -30,6 +30,7 @@ export const useLoginDev = () => {
       toast.success(data?.message);
       // Note to myself: Improved this, use cookies instead.
       localStorage.setItem("devs_accessToken", data?.accessToken);
+      localStorage.setItem("devs_ID", data?.data?.id);
       navigate("/");
     },
     onSettled: (_, error) => {
