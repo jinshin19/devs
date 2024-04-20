@@ -12,6 +12,7 @@ import {
   Me,
   NewDev,
 } from "../types/types";
+import jwt from "jsonwebtoken";
 
 export const getAllDevs = async (request: Request, response: Response) => {
   try {
@@ -108,18 +109,24 @@ export const createDev = async (request: Request, response: Response) => {
   }
 };
 
-export const isAuthorized = async (
+export const isVerified = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  const { id } = request.params;
-  if (!id) return response.status(401).send({ message: "Unauthorized" });
-  const result = await db.query.devs.findFirst({
-    columns: { id: true, username: true },
-    where: eq(devs.id, id),
-  });
-  if (!result) return response.status(401).send({ message: "Unauthorized" });
-  return response.status(200).send({ message: "Authorized" });
+  const { token }: { token: string } = await request.body;
+  if (!token)
+    return response.status(401).send({ message: "Authorized", ok: false });
+  const isVerified: any = jwt.verify(
+    token,
+    process.env.ACCESS_SECRET!,
+    (err, decoded) => {
+      if (err) return false;
+      return true;
+    }
+  );
+  if (!isVerified)
+    return response.status(401).send({ message: "Unauthorized", ok: false });
+  return response.status(200).send({ message: "Authorized", ok: true });
 };
 
 export const loginDev = async (request: Request, response: Response) => {
@@ -133,10 +140,25 @@ export const loginDev = async (request: Request, response: Response) => {
   const isMatched = compareHashedPassword(password!, result?.password!);
   if (!isMatched)
     return response.status(404).send({ message: "Wrong username or password" });
-  // note to myself: improve this, return a json with token here or do middleware
+  const accessToken = jwt.sign(
+    {
+      id: result?.id,
+      username: result?.username,
+    },
+    process.env.ACCESS_SECRET ?? "test",
+    { expiresIn: "15m" }
+  );
+  const refreshToken = jwt.sign(
+    {
+      // note to myself: This refresh token should be set in here to be a http only in cookie
+      id: result?.id,
+    },
+    process.env.ACCESS_SECRET ?? "test",
+    { expiresIn: "1d" }
+  );
   return response
     .status(200)
-    .send({ message: "Logged in successfully", data: result });
+    .send({ message: "Logged in successfully", accessToken });
 };
 
 export const updateDevByID = async (request: Request, response: Response) => {
