@@ -158,7 +158,11 @@ export const loginDev = async (request: Request, response: Response) => {
   );
   return response
     .status(200)
-    .send({ message: "Logged in successfully", accessToken });
+    .send({
+      message: "Logged in successfully",
+      accessToken,
+      data: { id: result?.id },
+    });
 };
 
 export const updateDevByID = async (request: Request, response: Response) => {
