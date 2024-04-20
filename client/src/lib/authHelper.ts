@@ -1,5 +1,9 @@
 import { axiosInstance } from "../services/api";
 
+/** Note to myself:
+ *  Be aware of this, token was set to 1min only, if the token expires then you / users will be redirected to login page
+ */
+
 export const isAuthenticated = async () => {
   const token = localStorage.getItem("devs_accessToken");
   const isNotExpired = await isTokenNotExpired(token!);
