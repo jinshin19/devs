@@ -3,12 +3,12 @@ import { settingAtom } from "../atoms/use_toggler";
 import { Link, useNavigate } from "react-router-dom";
 const Sub_Settings = () => {
   const [show] = useAtom(settingAtom);
-  const id = localStorage.getItem("temporaryStorage_ID");
+  const id = localStorage.getItem("devs_ID");
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
-    localStorage.removeItem("temporaryStorage_USERNAME");
-    localStorage.removeItem("temporaryStorage_ID");
+    localStorage.removeItem("devs_accessToken");
+    localStorage.removeItem("devs_ID");
     navigate("/login");
   };
 

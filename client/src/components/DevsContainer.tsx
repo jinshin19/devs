@@ -8,7 +8,7 @@ const DevsContainer = () => {
     <div className="devs-container">
       {data &&
         data?.data.map((d: GetAllDevDataTypes) => {
-          const id: string | null = localStorage.getItem("temporaryStorage_ID");
+          const id: string | null = localStorage.getItem("devs_ID");
           return d?.id !== id && <Devs key={d?.id} {...d} />;
         })}
     </div>
