@@ -3,7 +3,7 @@ import { hashPassword, compareHashedPassword } from "../utils/password_helper";
 import { ulid } from "ulid";
 import { db } from "../database/database";
 import { devs } from "../schema";
-import { eq } from "drizzle-orm";
+import { eq, like } from "drizzle-orm";
 import {
   Dev,
   DevCredential,
@@ -56,6 +56,24 @@ export const getDevByID = async (request: Request, response: Response) => {
     });
     return response.status(200).send({
       data,
+    });
+  } catch (error) {
+    return response.status(400).send({
+      error: error,
+    });
+  }
+};
+
+export const searchDev = async (request: Request, response: Response) => {
+  try {
+    const { search }: string = await request.body;
+    console.log(`%${search!}%`);
+    const searchResult = await db.query.devs.findMany({
+      columns: { id: true, username: true },
+      where: like(devs.username, `%${search}%`),
+    });
+    return response.status(200).send({
+      data: searchResult,
     });
   } catch (error) {
     return response.status(400).send({
@@ -156,13 +174,11 @@ export const loginDev = async (request: Request, response: Response) => {
     process.env.ACCESS_SECRET ?? "test",
     { expiresIn: "1d" }
   );
-  return response
-    .status(200)
-    .send({
-      message: "Logged in successfully",
-      accessToken,
-      data: { id: result?.id },
-    });
+  return response.status(200).send({
+    message: "Logged in successfully",
+    accessToken,
+    data: { id: result?.id },
+  });
 };
 
 export const updateDevByID = async (request: Request, response: Response) => {
