@@ -1,5 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { createDevAPI, LoginDevAPI, updateDevAPI } from "./api";
+import {
+  createDevAPI,
+  getDevsBySearch,
+  LoginDevAPI,
+  updateDevAPI,
+} from "./api";
 import { toast } from "react-toastify";
 import {
   AddORUpdateDevDataTypes,
@@ -7,6 +12,17 @@ import {
   SignupDevTypes,
 } from "../types/types";
 import { useNavigate } from "react-router-dom";
+import { SearchType } from "../components/Search";
+
+export const useSearchedDev = () => {
+  return useMutation({
+    mutationFn: (data: SearchType) => getDevsBySearch(data),
+    onSuccess: ({ data }) => data?.data,
+    onSettled: (_, error) => {
+      if (error) return toast.error(error?.response.data.message);
+    },
+  });
+};
 
 export const useCreateDev = () => {
   const navigate = useNavigate();
