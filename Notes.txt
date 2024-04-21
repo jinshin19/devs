@@ -1,5 +1,7 @@
 NOTES:
 
+1) Before inserting to database or before sending to backend, make sure all data must be set to lowercase
+
 2) Relations
    a) Study relations
 
