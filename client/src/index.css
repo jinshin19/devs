@@ -39,7 +39,7 @@ button {
 .wrapper,
 .wrapper .form-wrapper form .label-wrapper label .password-wrapper,
 .wrapper nav,
-.wrapper .search-wrapper,
+.wrapper .search-wrapper form,
 .devs-container,
 .wrapper .update-container .form-wrapper form .image-wrapper,
 .wrapper .update-container .form-wrapper form .label-wrapper .input-wrapper,
@@ -64,6 +64,10 @@ button {
 }
 
 /* default 100% width */
+.wrapper .search-wrapper form,
+.wrapper .search-wrapper form .search-result,
+.wrapper .search-wrapper form .search-result ul,
+.wrapper .search-wrapper form .search-result ul li a,
 .wrapper .form-wrapper form .title-wrapper,
 .wrapper .form-wrapper form .label-wrapper,
 .wrapper .form-wrapper form .label-wrapper label,
@@ -263,12 +267,36 @@ button {
   position: relative;
 }
 
-.wrapper .search-wrapper input {
+.wrapper .search-wrapper form {
+  width: 100%;
+  position: relative;
+}
+.wrapper .search-wrapper form input {
   border: 1px solid black;
   border-radius: 5px;
 }
 
-.wrapper .search-wrapper button {
+.wrapper .search-wrapper form .search-result ul {
+  position: absolute;
+  top: 100%;
+  background: white;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.wrapper .search-wrapper form .search-result ul li {
+  text-align: center;
+}
+
+.wrapper .search-wrapper form .search-result ul li a {
+  display: block;
+  color: black;
+  text-align: left;
+  padding: 1em;
+}
+
+.wrapper .search-wrapper form button {
   padding: 0;
   margin: 0;
   border: none;
