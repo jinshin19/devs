@@ -2,18 +2,27 @@ import { Link } from "react-router-dom";
 
 type SearchResultType = {
   id: string;
-  username: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
 };
 
-const SearchResult = ({ id, username }: SearchResultType) => {
+const SearchResult = ({
+  id,
+  firstname,
+  middlename,
+  lastname,
+}: SearchResultType) => {
   return (
-    <div className="search-result">
-      <ul>
-        <li>
-          <Link to={`/read/${id}`}>{username}</Link>
-        </li>
-      </ul>
-    </div>
+    <ul>
+      <li>
+        <Link to={`/read/${id}`}>
+          {firstname && firstname} {middlename && middlename}{" "}
+          {lastname && lastname}
+        </Link>
+      </li>
+    </ul>
+    // </div>
   );
 };
 
