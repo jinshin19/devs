@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { useSearchedDev } from "../services/mutation";
 import SearchResult from "./SearchResult";
+import { ChangeEvent } from "react";
 
 export type SearchType = {
   search: string;
@@ -24,7 +25,9 @@ const Search = () => {
             validate: (value) => (!value ? "no value" : undefined),
           }}
           render={({ field }) => {
-            const searchOnchangeHandler = (e) => {
+            const searchOnchangeHandler = (
+              e: ChangeEvent<HTMLInputElement>
+            ) => {
               field.onChange(e);
               trigger("search");
               searchHandler({ search: field.value });
