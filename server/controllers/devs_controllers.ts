@@ -3,7 +3,7 @@ import { hashPassword, compareHashedPassword } from "../utils/password_helper";
 import { ulid } from "ulid";
 import { db } from "../database/database";
 import { devs } from "../schema";
-import { eq, like } from "drizzle-orm";
+import { eq, like, or } from "drizzle-orm";
 import {
   Dev,
   DevCredential,
@@ -67,10 +67,14 @@ export const getDevByID = async (request: Request, response: Response) => {
 export const searchDev = async (request: Request, response: Response) => {
   try {
     const { search }: string = await request.body;
-    console.log(`%${search!}%`);
     const searchResult = await db.query.devs.findMany({
-      columns: { id: true, username: true },
-      where: like(devs.username, `%${search}%`),
+      columns: { id: true, firstname: true, middlename: true, lastname: true },
+      where: or(
+        like(devs.username, `%${search}%`),
+        like(devs.firstname, `%${search}%`),
+        like(devs.middlename, `%${search}%`),
+        like(devs.lastname, `%${search}%`)
+      ),
     });
     return response.status(200).send({
       data: searchResult,
