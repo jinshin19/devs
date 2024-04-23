@@ -24,10 +24,13 @@ const Login = () => {
         </div>
         <div className="content-wrapper">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, facere
-            cupiditate obcaecati cumque, voluptates repudiandae, repellendus
-            assumenda laborum eaque quibusdam architecto ratione dicta ipsum
-            reiciendis a harum pariatur illum adipisci?
+            Welcome to Devs, a platform where developers connect, collaborate,
+            and showcase their skills! Sign up or log in to explore a community
+            of talented developers. Browse through developer profiles in card
+            view, each featuring a picture and name. Click on a card to delve
+            into the details of that developer's skills and projects. Choose
+            your dev for collaboration and join us to discover, connect, and
+            collaborate with fellow developers!
           </p>
         </div>
       </div>
