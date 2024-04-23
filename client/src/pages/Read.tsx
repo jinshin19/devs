@@ -7,7 +7,6 @@ import { useGetDevByIDQuery } from "../services/queries";
 const Read = () => {
   const { id }: Params = useParams();
   const { data } = useGetDevByIDQuery(id!);
-  console.log(data);
   return (
     <div className="wrapper read-wrapper">
       <Nav />
