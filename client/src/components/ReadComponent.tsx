@@ -58,7 +58,9 @@ const ReadComponent = ({
               JSON.parse(links)?.map(
                 (link: { title: string; link: string }, key: number) => (
                   <li key={key}>
-                    <Link to={link.link}>{link.title}</Link>
+                    <Link to={link.link} target="_blank">
+                      {link.title}
+                    </Link>
                   </li>
                 )
               )
