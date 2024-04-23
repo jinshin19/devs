@@ -10,3 +10,6 @@ NOTES:
    b) Make a logic which if user clicks outside of the settings then setting nav should close.
 
 4) Navigator: To check if online or offline
+
+5) Improved the stacks and socials
+   a) improved the styles
