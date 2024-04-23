@@ -6,7 +6,6 @@ type SearchResultType = {
   middlename: string;
   lastname: string;
 };
-
 const SearchResult = ({
   id,
   firstname,
@@ -14,15 +13,12 @@ const SearchResult = ({
   lastname,
 }: SearchResultType) => {
   return (
-    <ul>
-      <li>
-        <Link to={`/read/${id}`}>
-          {firstname && firstname} {middlename && middlename}{" "}
-          {lastname && lastname}
-        </Link>
-      </li>
-    </ul>
-    // </div>
+    <li>
+      <Link to={`/read/${id}`}>
+        {firstname && firstname} {middlename && middlename}{" "}
+        {lastname && lastname}
+      </Link>
+    </li>
   );
 };
 

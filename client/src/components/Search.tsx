@@ -53,19 +53,23 @@ const Search = () => {
                       </li>
                     </ul>
                   )}
-                  {field?.value &&
-                    data?.data?.data?.length > 0 &&
-                    data?.data?.data.map(
-                      (
-                        search: {
-                          id: string;
-                          firstname: string;
-                          middlename: string;
-                          lastname: string;
-                        },
-                        k: number
-                      ) => <SearchResult key={k} {...search} />
-                    )}
+                  <ul>
+                    {/* Improved this, this is buggy */}
+                    {field?.value &&
+                      field?.value.length > 0 &&
+                      data?.data?.data?.length > 0 &&
+                      data?.data?.data.map(
+                        (
+                          search: {
+                            id: string;
+                            firstname: string;
+                            middlename: string;
+                            lastname: string;
+                          },
+                          k: number
+                        ) => <SearchResult key={k} {...search} />
+                      )}
+                  </ul>
                 </div>
               </>
             );
