@@ -1,3 +1,14 @@
+:root {
+  --color-white: white;
+  --border-black: 1px solid black;
+  --border-white: 1px solid white;
+  --deep-charcoal: #1b1b1b;
+  --jet-black: #141414;
+  --pale-gray: 1px solid#cbcbcb;
+  --dim-gray: 1px solid #6a6a6a;
+  --midnight-blue: #0d1017;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -11,8 +22,12 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
-  color: black;
+  /* color: var(--color-white); */
+  color: rgb(233, 233, 233);
   width: 100%;
+  background: var(--midnight-blue);
+  background: #0d1017;
+  letter-spacing: 1.1px;
 }
 
 textarea,
@@ -29,10 +44,25 @@ button {
   font-size: 14px;
   padding: 1em 2em;
   background: transparent;
-  border: 1px solid black;
   border-radius: 5px;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+/* With whole borders */
+button,
+.wrapper .form-wrapper form .label-wrapper label p,
+.wrapper .form-wrapper form .label-wrapper label input,
+.wrapper .search-wrapper form input,
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs
+  input {
+  border: var(--dim-gray);
 }
 
 /* default display flex */
@@ -128,8 +158,7 @@ button {
   position: absolute;
   top: -16px;
   left: 5px;
-  background: white;
-  border: 1px solid black;
+  background: var(--jet-black);
   padding: 0.3em 0.5em;
   border-radius: 4px;
   font-size: 13px;
@@ -147,8 +176,9 @@ button {
 }
 
 .wrapper .form-wrapper form .label-wrapper label input {
-  border: 1px solid black;
   transition: 0.1s ease-in-out;
+  background: var(--jet-black);
+  color: var(--color-white);
 }
 
 .wrapper .form-wrapper form .label-wrapper label .password-wrapper {
@@ -196,8 +226,13 @@ button {
   border: none;
 }
 
+.wrapper .form-wrapper form .buttons-wrapper button:active {
+  transform: scale(0.95);
+  background: var(--deep-charcoal);
+}
 .wrapper .form-wrapper form .buttons-wrapper button {
   margin: 1em auto;
+  background: var(--jet-black);
 }
 
 .wrapper .form-wrapper form .extra-wrapper {
@@ -212,7 +247,7 @@ button {
 .wrapper .form-wrapper form .extra-wrapper a {
   text-transform: capitalize;
   text-decoration: underline;
-  color: blue;
+  color: var(--color-white);
 }
 
 /* Login */
@@ -265,24 +300,30 @@ button {
 .wrapper .search-wrapper {
   width: 500px;
   position: relative;
+  background: transparent;
 }
 
 .wrapper .search-wrapper form {
   width: 100%;
   position: relative;
+  background: transparent;
 }
 .wrapper .search-wrapper form input {
-  border: 1px solid black;
   border-radius: 5px;
+  background: var(--jet-black);
+  color: var(--color-white);
+  border: var(--dim-gray);
 }
 
 .wrapper .search-wrapper form .search-result ul {
   position: absolute;
   top: 100%;
   background: white;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
+  max-height: 300px;
+  /* border-left: var(--dim-gray);
+  border-right: var(--dim-gray);
+  border-bottom: var(--dim-gray); */
+  background: var(--jet-black);
 }
 
 .wrapper .search-wrapper form .search-result ul li {
@@ -291,7 +332,7 @@ button {
 
 .wrapper .search-wrapper form .search-result ul li a {
   display: block;
-  color: black;
+  color: var(--color-white);
   text-align: left;
   padding: 1em;
 }
@@ -311,11 +352,12 @@ button {
 
 .wrapper nav ul li .sub-setting-wrapper {
   position: absolute;
-  background: #d9d9d9;
+  background: var(--jet-black);
   text-align: center;
   left: -100%;
   width: 100px;
   border-radius: 5px;
+  border: var(--dim-gray);
 }
 
 .wrapper nav ul li .sub-setting-wrapper .arrow {
@@ -325,12 +367,13 @@ button {
   transform: rotate(-45deg);
   right: 13px;
   top: -5px;
-  background: #d9d9d9;
+  background: var(--jet-black);
+  border: var(--dim-gray);
   z-index: -1;
 }
 
 .wrapper nav ul li .sub-setting-wrapper .actions:hover {
-  background: #b9b9b9;
+  background: #333333;
 }
 
 .wrapper nav ul li .sub-setting-wrapper .actions {
@@ -342,21 +385,28 @@ button {
   font-weight: 600;
   width: 100%;
   padding: 0.7em 0;
-  color: black;
+  color: var(--color-white);
   z-index: 1;
   font-size: 14px;
   border-radius: 0;
 }
 
 /* Devs Container */
+.wrapper .devs-container .devs:hover {
+  border: var(--pale-gray);
+  transform: translateY(-5px);
+}
 .wrapper .devs-container .devs {
   max-width: 210px;
   width: 210px;
   height: 156px;
-  border: 1px solid;
   padding: 1em;
   border-radius: 5px;
   margin: 1em;
+  background: var(--jet-black);
+  border: var(--dim-gray);
+  transition: 0.1s ease-in-out;
+  text-transform: capitalize;
 }
 
 .wrapper .devs-container .devs .image-wrapper,
@@ -372,12 +422,17 @@ button {
   margin: 1em 0;
   text-align: center;
   word-wrap: break-word;
-  color: black;
+  color: var(--color-white);
 }
 
 .wrapper footer {
   text-align: center;
   margin-top: 5em;
+}
+
+.wrapper footer small a {
+  color: white;
+  text-decoration: underline;
 }
 
 /* Read */
@@ -413,6 +468,7 @@ button {
   font-weight: 600;
   font-size: 1.2em;
   margin-bottom: 0.2em;
+  text-transform: capitalize;
 }
 
 .wrapper .read-container .read-content-wrapper .name-wrapper small {
@@ -455,6 +511,14 @@ button {
   margin: 1em 0 1.5em;
 }
 
+.wrapper .read-container .read-content-wrapper .links-wrapper ul li a:hover {
+  text-decoration: none;
+}
+.wrapper .read-container .read-content-wrapper .links-wrapper ul li a {
+  color: var(--color-white);
+  text-decoration: underline;
+}
+
 /* Update */
 .update-wrapper::-webkit-scrollbar {
   width: 0px;
@@ -476,7 +540,6 @@ button {
 .wrapper .update-container .form-wrapper form .image-wrapper {
   padding: 2em;
   margin-bottom: 2em;
-  border-bottom: 1px solid;
   flex-direction: column;
 }
 
@@ -517,16 +580,37 @@ button {
   form
   .image-wrapper
   label
+  p:nth-child(2):active {
+  transform: scale(0.95);
+}
+
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .image-wrapper
+  label
+  p:nth-child(2):hover {
+  border: var(--pale-gray);
+  cursor: pointer;
+}
+
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .image-wrapper
+  label
   p:nth-child(2) {
   display: block;
   width: 100%;
-  border: 1px solid;
-  padding: 0.5em;
+  border: var(--dim-gray);
+  padding: 0.7em;
   border-radius: 5px;
   font-weight: 600;
   text-transform: uppercase;
-  /* margin-top: 1em; */
   text-align: center;
+  background: var(--jet-black);
 }
 
 .wrapper
@@ -545,6 +629,9 @@ button {
   border: 1px solid;
   resize: none;
   overflow-y: auto;
+  background: var(--jet-black);
+  border: var(--dim-gray);
+  color: var(--color-white);
 }
 
 .update-wrapper footer {
@@ -574,11 +661,51 @@ button {
   .label-wrapper
   .input-wrapper
   .inputs
+  button:active {
+  background: var(--deep-charcoal);
+}
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs
+  button:hover,
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .add-wrapper
+  button:hover {
+  border: var(--pale-gray);
+}
+
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs
+  button {
+  background: var(--jet-black);
+}
+
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .input-wrapper
+  .inputs
   input {
   flex: 1;
-  border: 1px solid black;
   margin: 0 0.5em;
   border-radius: 5px;
+  background: var(--jet-black);
+  color: var(--color-white);
 }
 
 .wrapper
@@ -603,6 +730,17 @@ button {
   form
   .label-wrapper
   .add-wrapper
+  button:active {
+  transform: scale(0.95);
+}
+
+.wrapper
+  .update-container
+  .form-wrapper
+  form
+  .label-wrapper
+  .add-wrapper
   button {
   width: 100%;
+  background: var(--jet-black);
 }
