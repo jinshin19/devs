@@ -33,7 +33,7 @@ const ReadComponent = ({
           <small>{username && `@${username}`}</small>
         </div>
         <div className="bio-wrapper">
-          <p style={{ textAlign: "center" }}>{bio && `" ${bio} "`}</p>
+          <p style={{ textAlign: "center" }}>{bio && bio}</p>
         </div>
         <div className="stacks-wrapper">
           <div className="title-wrapper">
