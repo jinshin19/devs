@@ -33,5 +33,5 @@ export type LoginDev = Pick<DevUsername, "username"> & {
 
 export type NewDev = Pick<
   InferInsertModel<typeof devs>,
-  "username" | "firstname" | "password"
+  "username" | "firstname" | "lastname" | "password"
 > & { confirm_password: string | null };

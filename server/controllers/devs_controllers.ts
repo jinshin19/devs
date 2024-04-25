@@ -91,9 +91,17 @@ export const createDev = async (request: Request, response: Response) => {
   const {
     username,
     firstname,
+    lastname,
     password: UserPassword,
     confirm_password,
   }: NewDev = request.body;
+
+  const newValues = {
+    username: username?.toLowerCase(),
+    firstname: firstname?.toLowerCase(),
+    lastname: lastname?.toLowerCase(),
+  }
+
   // Note to myself: I think I need to improve this, Instead of doing the validatiom here, why not in the frontend instead.
   if (!username && !firstname && !UserPassword && !confirm_password)
     return response.status(400).send({ message: "Fields are required" });
@@ -117,7 +125,7 @@ export const createDev = async (request: Request, response: Response) => {
   const password = hashPassword(UserPassword);
 
   try {
-    await db.insert(devs).values({ id, ...request.body, password });
+    await db.insert(devs).values({ id, ...newValues, password });
     return response.status(200).send({
       message: "Signed up Successfully",
       ok: true,
@@ -203,6 +211,18 @@ export const updateDevByID = async (request: Request, response: Response) => {
     links: UserLinks,
     password,
   }: Me = request.body;
+
+  const newValues = {
+    id,
+    username: username?.toLowerCase(),
+    firstname: firstname?.toLowerCase(),
+    middlename: middlename?.toLowerCase(),
+    lastname: lastname?.toLowerCase(),
+    bio: bio?.toLowerCase(),
+    stacks: stacks?.toLowerCase(),
+    links: UserLinks,
+  }
+
   const links = JSON.stringify(UserLinks);
   if (
     !username &&
@@ -220,7 +240,7 @@ export const updateDevByID = async (request: Request, response: Response) => {
   try {
     await db
       .update(devs)
-      .set({ ...request.body, links })
+      .set({ ...newValues, links })
       .where(eq(devs.id, id));
     return response.status(200).send({
       message: "Updated Successfully",
