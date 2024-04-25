@@ -1,5 +1,5 @@
 import { z } from "zod";
-export const UserSchema = z
+export const DevSchema = z
   .object({
     username: z.string().min(1),
     firstname: z.string().min(1),
@@ -17,5 +17,5 @@ export const LoginSchema = z.object({
   password: z.string().min(8),
 });
 
-export type TUserSchema = z.infer<typeof UserSchema>;
+export type TDevSchema = z.infer<typeof DevSchema>;
 export type TLoginSchema = z.infer<typeof LoginSchema>;
