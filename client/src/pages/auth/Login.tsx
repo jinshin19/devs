@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { LoginDevTypes } from "../../types/types";
 import ShowPassword from "../../components/ShowPassword";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginDev } from "../../services/mutation";
+import { LoginSchema, TLoginSchema } from "../../types/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -12,8 +13,10 @@ const Login = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<LoginDevTypes>();
-  const loginHandler: SubmitHandler<LoginDevTypes> = async (data) => {
+  } = useForm<TLoginSchema>({
+    resolver: zodResolver(LoginSchema),
+  });
+  const loginHandler: SubmitHandler<TLoginSchema> = async (data) => {
     loginDev.mutate(data);
   };
   return (
@@ -43,7 +46,7 @@ const Login = () => {
           <div className="label-wrapper">
             <label htmlFor="Username">
               {errors?.username ? (
-                <p className="required"> Username is required</p>
+                <p className="required"> {errors?.username?.message} </p>
               ) : (
                 <p> Username </p>
               )}
@@ -51,14 +54,14 @@ const Login = () => {
                 id="Username"
                 type="text"
                 placeholder="Username..."
-                {...register("username", { required: true })}
+                {...register("username")}
               />
             </label>
           </div>
           <div className="label-wrapper">
             <label htmlFor="Password">
               {errors.password ? (
-                <p className="required"> Password is required </p>
+                <p className="required"> {errors?.password?.message} </p>
               ) : (
                 <p> Password </p>
               )}
@@ -67,7 +70,7 @@ const Login = () => {
                   id="Password"
                   type={show ? "text" : "password"}
                   placeholder="Password ..."
-                  {...register("password", { required: true })}
+                  {...register("password")}
                 />
                 <ShowPassword show={show} setShow={setShow} />
               </div>
