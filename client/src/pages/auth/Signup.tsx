@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SignupDevTypes } from "../../types/types";
 import ShowPassword from "../../components/ShowPassword";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateDev } from "../../services/mutation";
-import { TUserSchema, UserSchema } from "../../types/schema";
+import { TDevSchema, DevSchema } from "../../types/schema";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
@@ -16,11 +15,11 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm<TUserSchema>({
-    resolver: zodResolver(UserSchema),
+  } = useForm<TDevSchema>({
+    resolver: zodResolver(DevSchema),
   });
 
-  const signUpHandler: SubmitHandler<TUserSchema> = (data) => {
+  const signUpHandler: SubmitHandler<TDevSchema> = (data) => {
     createDev.mutate(data);
   };
 
@@ -106,7 +105,7 @@ const Signup = () => {
                   validate: (value) => {
                     console.log(value);
                     try {
-                      UserSchema.parse({
+                      DevSchema.parse({
                         password: getValues("password"),
                         confirmPassword: value,
                       });
