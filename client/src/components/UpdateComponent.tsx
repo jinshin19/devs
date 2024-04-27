@@ -3,13 +3,15 @@ import imagePlaceHolder from "../assets/image-placeholder.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { AddORUpdateDevDataTypes } from "../types/types";
 import { useParams } from "react-router-dom";
 import { useUpdateDev } from "../services/mutation";
-import { axiosInstance } from "../services/api";
+import { TupdateDevSchema, updateDevSchema } from "../types/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useGetDevByIDQuery } from "../services/queries";
 
 const UpdateComponent = () => {
   const { id } = useParams();
+  const { data } = useGetDevByIDQuery(id!);
   const updateDev = useUpdateDev();
   const {
     register,
@@ -17,7 +19,14 @@ const UpdateComponent = () => {
     control,
     formState: { errors },
     setValue,
-  } = useForm<AddORUpdateDevDataTypes>();
+  } = useForm<TupdateDevSchema>({
+    defaultValues: {
+      middlename: "",
+      stacks: "",
+    },
+    resolver: zodResolver(updateDevSchema),
+  });
+
   const { fields, remove, append } = useFieldArray({
     control,
     name: "links",
@@ -26,29 +35,27 @@ const UpdateComponent = () => {
   const addLinkHandler = () => append({ title: "", link: "" });
   const deleteLinkHandler = (index: number) => remove(index);
 
-  const updateHandler: SubmitHandler<AddORUpdateDevDataTypes> = (data) => {
+  const updateHandler: SubmitHandler<TupdateDevSchema> = (data) => {
     updateDev.mutate({ ...(id ? { id } : {}), ...data });
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axiosInstance.get(`/devs/${id}`);
-      const { data } = response;
       setValue("bio", data?.data.bio);
       setValue("username", data?.data.username);
       setValue("firstname", data?.data.firstname);
       setValue("middlename", data?.data.middlename);
       setValue("lastname", data?.data.lastname);
       setValue("stacks", data?.data.stacks);
-      const parsedLinks = data.data.links && JSON.parse(data.data.links);
-      parsedLinks.forEach(
+      const parsedLinks = data?.data.links && JSON.parse(data.data.links);
+      parsedLinks?.forEach(
         ({ title, link }: { title: string; link: string }) => {
           append({ title, link });
         }
       );
     };
     fetchData();
-  }, [id, setValue, append]);
+  }, [id, setValue, append, data]);
 
   return (
     <div className="update-container">
@@ -87,7 +94,7 @@ const UpdateComponent = () => {
           <div className="label-wrapper">
             <label htmlFor="Username">
               {errors.username ? (
-                <p className="required"> Username is required </p>
+                <p className="required"> {errors.username?.message} </p>
               ) : (
                 <p> Username </p>
               )}
@@ -95,14 +102,14 @@ const UpdateComponent = () => {
                 id="Username"
                 type="text"
                 placeholder="Username..."
-                {...register("username", { required: true })}
+                {...register("username")}
               />
             </label>
           </div>
           <div className="label-wrapper">
             <label htmlFor="Firstname">
               {errors.firstname ? (
-                <p className="required">Firstname is required</p>
+                <p className="required">{errors.firstname?.message}</p>
               ) : (
                 <p>Firstname</p>
               )}
@@ -110,7 +117,7 @@ const UpdateComponent = () => {
                 id="Firstname"
                 type="text"
                 placeholder="Firstname..."
-                {...register("firstname", { required: true })}
+                {...register("firstname")}
               />
             </label>
           </div>
@@ -128,7 +135,7 @@ const UpdateComponent = () => {
           <div className="label-wrapper">
             <label htmlFor="Lastname">
               {errors.lastname ? (
-                <p className="required"> Lastname is required </p>
+                <p className="required"> {errors.lastname?.message} </p>
               ) : (
                 <p> Lastname </p>
               )}
@@ -136,14 +143,18 @@ const UpdateComponent = () => {
                 id="Lastname"
                 type="text"
                 placeholder="Lastname..."
-                {...register("lastname", { required: true })}
+                {...register("lastname")}
               />
             </label>
           </div>
           <h2> Stacks </h2>
           <div className="label-wrapper stack-wrapper">
             <label htmlFor="Stacks">
-              <p> Stacks </p>
+              {errors.stacks ? (
+                <p className="required"> {errors.stacks?.message} </p>
+              ) : (
+                <p> Stacks </p>
+              )}
               <textarea
                 id="Stacks"
                 placeholder="Enter stack and add comma ( e.g: html, css, js )"

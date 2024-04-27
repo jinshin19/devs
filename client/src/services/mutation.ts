@@ -13,6 +13,7 @@ import {
 } from "../types/types";
 import { useNavigate } from "react-router-dom";
 import { SearchType } from "../components/Search";
+import { TupdateDevSchema } from "../types/schema";
 
 export const useSearchedDev = () => {
   return useMutation({
@@ -58,7 +59,7 @@ export const useLoginDev = () => {
 export const useUpdateDev = () => {
   const navigate = useNavigate();
   return useMutation({
-    mutationFn: (data: AddORUpdateDevDataTypes) => updateDevAPI(data),
+    mutationFn: (data: TupdateDevSchema) => updateDevAPI(data),
     onSuccess: ({ data }) => {
       toast.success(data?.message);
       navigate("/");

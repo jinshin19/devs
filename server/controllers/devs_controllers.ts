@@ -13,6 +13,34 @@ import {
   NewDev,
 } from "../types/types";
 import jwt from "jsonwebtoken";
+import {
+  TDevSchema,
+  DevSchema,
+  TLoginSchema,
+  LoginSchema,
+  TupdateDevSchema,
+  updateDevSchema,
+} from "../types/schema";
+
+export const isVerified = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const { token }: { token: string } = await request.body;
+  if (!token)
+    return response.status(401).send({ message: "Authorized", ok: false });
+  const isVerified: any = jwt.verify(
+    token,
+    process.env.ACCESS_SECRET!,
+    (err, decoded) => {
+      if (err) return false;
+      return true;
+    }
+  );
+  if (!isVerified)
+    return response.status(401).send({ message: "Unauthorized", ok: false });
+  return response.status(200).send({ message: "Authorized", ok: true });
+};
 
 export const getAllDevs = async (request: Request, response: Response) => {
   try {
@@ -93,104 +121,81 @@ export const createDev = async (request: Request, response: Response) => {
     firstname,
     lastname,
     password: UserPassword,
-    confirm_password,
-  }: NewDev = request.body;
-
-  const newValues = {
-    username: username?.toLowerCase(),
-    firstname: firstname?.toLowerCase(),
-    lastname: lastname?.toLowerCase(),
-  }
-
-  // Note to myself: I think I need to improve this, Instead of doing the validatiom here, why not in the frontend instead.
-  if (!username && !firstname && !UserPassword && !confirm_password)
-    return response.status(400).send({ message: "Fields are required" });
-  if (!username)
-    return response.status(400).send({ message: "Username is required" });
-  const isUsernameExist: DevUsername | undefined =
-    await db.query.devs.findFirst({
-      columns: { username: true },
+  }: TDevSchema = await request.body;
+  try {
+    const isUsernameExist = await db.query.devs.findFirst({
+      columns: { username: true, password: true },
       where: eq(devs.username, username),
     });
-  if (isUsernameExist)
+    if (isUsernameExist)
+      return response
+        .status(409)
+        .send({ message: "Username is already taken", ok: false });
+    const password = hashPassword(UserPassword);
+    const devValues = DevSchema.parse({
+      ...request.body,
+      firstname: firstname.toLowerCase()!,
+      lastname: lastname?.toLowerCase(),
+      password,
+    });
+    await db.insert(devs).values({ id, ...devValues });
     return response
-      .status(409)
-      .send({ message: "Username is already taken", ok: false });
-  if (!firstname)
-    return response.status(400).send({ message: "Firstname is required" });
-  if (!UserPassword)
-    return response.status(400).send({ message: "Password is required" });
-  if (UserPassword !== confirm_password)
-    return response.status(400).send({ message: "Password not match" });
-  const password = hashPassword(UserPassword);
-
-  try {
-    await db.insert(devs).values({ id, ...newValues, password });
-    return response.status(200).send({
-      message: "Signed up Successfully",
-      ok: true,
-    });
+      .status(201)
+      .send({ message: "Signed Up Successfully", ok: true });
   } catch (error) {
-    console.log("Error Signup:", error);
-    return response.status(400).send({
-      message: "Failed to signup",
-      ok: false,
-    });
+    console.log("Error creating", error);
+    return response
+      .status(400)
+      .send({ message: "Failed to sign up", ok: false });
   }
-};
-
-export const isVerified = async (
-  request: Request,
-  response: Response
-): Promise<Response> => {
-  const { token }: { token: string } = await request.body;
-  if (!token)
-    return response.status(401).send({ message: "Authorized", ok: false });
-  const isVerified: any = jwt.verify(
-    token,
-    process.env.ACCESS_SECRET!,
-    (err, decoded) => {
-      if (err) return false;
-      return true;
-    }
-  );
-  if (!isVerified)
-    return response.status(401).send({ message: "Unauthorized", ok: false });
-  return response.status(200).send({ message: "Authorized", ok: true });
 };
 
 export const loginDev = async (request: Request, response: Response) => {
-  const { username, password }: DevCredential = await request.body;
-  const result: DevCredential | undefined = await db.query.devs.findFirst({
-    columns: { id: true, username: true, password: true },
-    where: eq(devs.username, username!),
-  });
-  if (!result)
-    return response.status(404).send({ message: "Wrong username or password" });
-  const isMatched = compareHashedPassword(password!, result?.password!);
-  if (!isMatched)
-    return response.status(404).send({ message: "Wrong username or password" });
-  const accessToken = jwt.sign(
-    {
-      id: result?.id,
-      username: result?.username,
-    },
-    process.env.ACCESS_SECRET ?? "test",
-    { expiresIn: "15m" }
-  );
-  const refreshToken = jwt.sign(
-    {
-      // note to myself: This refresh token should be set in here to be a http only in cookie
-      id: result?.id,
-    },
-    process.env.ACCESS_SECRET ?? "test",
-    { expiresIn: "1d" }
-  );
-  return response.status(200).send({
-    message: "Logged in successfully",
-    accessToken,
-    data: { id: result?.id },
-  });
+  const { username, password }: TLoginSchema = await request.body;
+  try {
+    const parsedValue = LoginSchema.parse({ username, password });
+    const isUserExist: TLoginSchema & {
+      id?: string;
+    } = (await db.query.devs.findFirst({
+      columns: { id: true, username: true, password: true },
+      where: eq(devs.username, parsedValue?.username),
+    })) as TLoginSchema;
+    if (!isUserExist)
+      return response.status(404).send({ message: "error", ok: false });
+    const isPasswordMatched = compareHashedPassword(
+      password,
+      isUserExist?.password
+    );
+    console.log(isPasswordMatched);
+    if (!isPasswordMatched)
+      return response.status(404).send({ message: "error", ok: false });
+    const accessToken = jwt.sign(
+      {
+        id: isUserExist?.id,
+        username: isUserExist?.username,
+      },
+      process.env.ACCESS_SECRET ?? "test",
+      { expiresIn: "15m" }
+    );
+    const refreshToken = jwt.sign(
+      {
+        // note to myself: This refresh token should be set in here to be a http only in cookie
+        id: isUserExist?.id,
+      },
+      process.env.ACCESS_SECRET ?? "test",
+      { expiresIn: "1d" }
+    );
+    return response.status(200).send({
+      message: "Logged in successfully",
+      accessToken,
+      data: { id: isUserExist?.id },
+    });
+  } catch (error) {
+    console.log("Error Logging in", error);
+    return response
+      .status(400)
+      .send({ message: "Failed to sign up", ok: false });
+  }
 };
 
 export const updateDevByID = async (request: Request, response: Response) => {
@@ -209,10 +214,9 @@ export const updateDevByID = async (request: Request, response: Response) => {
     bio,
     stacks,
     links: UserLinks,
-    password,
-  }: Me = request.body;
-
-  const newValues = {
+  }: TupdateDevSchema = request.body;
+  const links = JSON.stringify(UserLinks);
+  const parsedValue = updateDevSchema.parse({
     id,
     username: username?.toLowerCase(),
     firstname: firstname?.toLowerCase(),
@@ -220,35 +224,22 @@ export const updateDevByID = async (request: Request, response: Response) => {
     lastname: lastname?.toLowerCase(),
     bio: bio?.toLowerCase(),
     stacks: stacks?.toLowerCase(),
-    links: UserLinks,
-  }
-
-  const links = JSON.stringify(UserLinks);
-  if (
-    !username &&
-    !firstname &&
-    !middlename &&
-    !lastname &&
-    !bio &&
-    !stacks &&
-    !links &&
-    !password
-  )
-    return response.status(400).send({
-      message: "Fields are required",
-    });
+    links,
+  });
   try {
     await db
       .update(devs)
-      .set({ ...newValues, links })
+      .set({ ...parsedValue, links })
       .where(eq(devs.id, id));
     return response.status(200).send({
       message: "Updated Successfully",
+      ok: true,
     });
   } catch (error) {
     console.log("Error Update:", error);
     return response.status(400).send({
       error: error,
+      ok: false,
     });
   }
 };
@@ -257,9 +248,13 @@ export const deleteDevByID = async (request: Request, response: Response) => {
   const { id } = request.params;
   try {
     await db.delete(devs).where(eq(devs.id, id));
-    return response.status(200).send({ message: "Deleted successfully" });
+    return response
+      .status(200)
+      .send({ message: "Deleted successfully", ok: true });
   } catch (error) {
     console.log("Error Delete:", error);
-    return response.status(400).send({ message: "Failed to delete" });
+    return response
+      .status(400)
+      .send({ message: "Failed to delete", ok: false });
   }
 };
