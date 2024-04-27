@@ -17,3 +17,5 @@ NOTES:
 6) Make all the data or values to be a lowercase before inserting to database
 
 7) In every protected api request, attached and validate the token in the headers
+
+8) Add forgot password
